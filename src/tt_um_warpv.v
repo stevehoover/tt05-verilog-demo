@@ -910,18 +910,6 @@ logic [31:0] FETCH_Instr_Src_unconditioned_reg_value_a0 [2:1];
 logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
 
 
-//
-// Scope: |fetch
-//
-
-//
-// Scope: |fetch/instr
-//
-
-// Clock signals.
-logic clkP_FETCH_Instr_ld_st_cond_a1 ;
-logic clkP_FETCH_Instr_valid_decode_a1 ;
-
 
 
    //
@@ -952,7 +940,7 @@ logic clkP_FETCH_Instr_valid_decode_a1 ;
          always_ff @(posedge clk) FETCH_Instr_aborting_trap_a1 <= FETCH_Instr_aborting_trap_a0;
 
          // Staging of $addr.
-         always_ff @(posedge clkP_FETCH_Instr_ld_st_cond_a1) FETCH_Instr_addr_a1[1:0] <= FETCH_Instr_addr_a0[1:0];
+         always_ff @(posedge clk) FETCH_Instr_addr_a1[1:0] <= FETCH_Instr_addr_a0[1:0];
 
          // Staging of $csr_cycle.
          always_ff @(posedge clk) FETCH_Instr_csr_cycle_a0[31:0] <= FETCH_Instr_csr_cycle_n1[31:0];
@@ -979,10 +967,10 @@ logic clkP_FETCH_Instr_valid_decode_a1 ;
          always_ff @(posedge clk) FETCH_Instr_ld_data_a1[31:0] <= FETCH_Instr_ld_data_a0[31:0];
 
          // Staging of $ld_st_half.
-         always_ff @(posedge clkP_FETCH_Instr_valid_decode_a1) FETCH_Instr_ld_st_half_a1 <= FETCH_Instr_ld_st_half_a0;
+         always_ff @(posedge clk) FETCH_Instr_ld_st_half_a1 <= FETCH_Instr_ld_st_half_a0;
 
          // Staging of $ld_st_word.
-         always_ff @(posedge clkP_FETCH_Instr_valid_decode_a1) FETCH_Instr_ld_st_word_a1 <= FETCH_Instr_ld_st_word_a0;
+         always_ff @(posedge clk) FETCH_Instr_ld_st_word_a1 <= FETCH_Instr_ld_st_word_a0;
 
          // Staging of $no_fetch.
          always_ff @(posedge clk) FETCH_Instr_no_fetch_a1 <= FETCH_Instr_no_fetch_a0;
@@ -1000,7 +988,7 @@ logic clkP_FETCH_Instr_valid_decode_a1 ;
          always_ff @(posedge clk) FETCH_Instr_pc_inc_a1[31:0] <= FETCH_Instr_pc_inc_a0[31:0];
 
          // Staging of $raw_funct3.
-         always_ff @(posedge clkP_FETCH_Instr_valid_decode_a1) FETCH_Instr_raw_funct3_a1[2] <= FETCH_Instr_raw_funct3_a0[2];
+         always_ff @(posedge clk) FETCH_Instr_raw_funct3_a1[2] <= FETCH_Instr_raw_funct3_a0[2];
 
          // Staging of $replay.
          always_ff @(posedge clk) FETCH_Instr_replay_a1 <= FETCH_Instr_replay_a0;
@@ -1047,28 +1035,6 @@ logic clkP_FETCH_Instr_valid_decode_a1 ;
             always_ff @(posedge clk) L1c_FETCH_Instr_Src[src].L1_dummy_a1 <= L1c_FETCH_Instr_Src[src].L1_dummy_a0;
 
          end
-
-
-
-
-
-//
-// Gated clocks.
-//
-
-
-
-   //
-   // Scope: |fetch
-   //
-
-
-      //
-      // Scope: /instr
-      //
-
-         clk_gate gen_clkP_FETCH_Instr_ld_st_cond_a1(clkP_FETCH_Instr_ld_st_cond_a1, clk, 1'b1, FETCH_Instr_ld_st_cond_a0, 1'b0);
-         clk_gate gen_clkP_FETCH_Instr_valid_decode_a1(clkP_FETCH_Instr_valid_decode_a1, clk, 1'b1, FETCH_Instr_valid_decode_a0, 1'b0);
 
 
 
