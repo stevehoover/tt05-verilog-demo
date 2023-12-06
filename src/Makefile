@@ -13,7 +13,7 @@ VERILOG_SOURCES += $(PWD)/tb.v $(PWD)/tt_um_warpv.v
 
 # Verilog from TL-Verilog.
 %.v: %.tlv
-	sandpiper-saas -i '$(<F)' -o '$(@F)' --outdir sandpiper_out --inlineGen --iArgs
+	sandpiper-saas -i '$(<F)' -o '$(@F)' --outdir sandpiper_out --inlineGen --noDirectiveComments --iArgs
 	mv sandpiper_out/$@ .
 
 else
