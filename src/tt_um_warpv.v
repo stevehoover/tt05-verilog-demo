@@ -1102,10 +1102,15 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                                  //_|fetch
                                     //_\source /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv 88   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 1770 as: m5+ifelse(m5_get(VIZ), 1,
                                        //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 1771   // Instantiated from /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv, 89 as: m4+ANONYMOUS__8.
-                                          for (instr_mem = 0; instr_mem <= 13; instr_mem++) begin : L1_FETCH_InstrMem logic [31:0] L1_instr_a0; //_/instr_mem
+                                          for (instr_mem = 0; instr_mem <= 13; instr_mem++) begin : L1_FETCH_InstrMem //_/instr_mem
+
+                                             // For $instr.
+                                             logic [31:0] L1_instr_a0;
+
                                              //_@0
                                                 assign L1_instr_a0[31:0] = instrs[instr_mem];
-                                                assign FETCH_InstrMem_instr_str_a0[instr_mem][40*8-1:0] = instr_strs[instr_mem]; end
+                                                assign FETCH_InstrMem_instr_str_a0[instr_mem][40*8-1:0] = instr_strs[instr_mem];
+                                          end
                                        //_\end_source
                                     //_\end_source
                                     //_@0
@@ -1304,8 +1309,13 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                            //_/orig_inst
                               // pull values from /orig_load_inst or /hold_inst depending on which second issue
                               assign {FETCH_Instr_OrigInst_dest_reg_a0[4:0], FETCH_Instr_OrigInst_pc_a0[31:0]} = FETCH_Instr_second_issue_ld_a0 ? {FETCH_Instr_OrigLoadInst_dest_reg_a0, FETCH_Instr_OrigLoadInst_pc_a0} : {FETCH_Instr_OrigLoadInst_dest_reg_a0, FETCH_Instr_OrigLoadInst_pc_a0} /* default case is invalid, but this choice should enable logic to reduce well */;
-                              for (src = 1; src <= 2; src++) begin : L1_FETCH_Instr_OrigInst_Src logic L1_dummy_a0; //_/src
-                                 assign {L1_dummy_a0} = FETCH_Instr_second_issue_ld_a0 ? {L1_FETCH_Instr_OrigLoadInst_Src[src].L1_dummy_a0} : {L1_FETCH_Instr_OrigLoadInst_Src[src].L1_dummy_a0}; end
+                              for (src = 1; src <= 2; src++) begin : L1_FETCH_Instr_OrigInst_Src //_/src
+
+                                 // For $dummy.
+                                 logic L1_dummy_a0;
+
+                                 assign {L1_dummy_a0} = FETCH_Instr_second_issue_ld_a0 ? {L1_FETCH_Instr_OrigLoadInst_Src[src].L1_dummy_a0} : {L1_FETCH_Instr_OrigLoadInst_Src[src].L1_dummy_a0};
+                              end
                               //_\source /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv 88   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 3968 as: m5+ifelse(m5_get(EXT_F), 1,
                                  
                               //_\end_source
@@ -1443,12 +1453,20 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                               `BOGUS_USE(FETCH_Instr_is___type_a0 FETCH_Instr_is_u_type_a0)
                         
                               // Output signals.
-                              for (src = 1; src <= 2; src++) begin : L1_FETCH_Instr_Src logic L1_is_reg_a0; logic [4:0] L1_reg_a0; //_/src
+                              for (src = 1; src <= 2; src++) begin : L1_FETCH_Instr_Src //_/src
+
+                                 // For $is_reg.
+                                 logic L1_is_reg_a0;
+
+                                 // For $reg.
+                                 logic [4:0] L1_reg_a0;
+
                                  // Reg valid for this source, based on instruction type.
                                  assign L1_is_reg_a0 =
                                      
                                      (FETCH_Instr_is_r_type_a0 || FETCH_Instr_is_r4_type_a0 || (FETCH_Instr_is_i_type_a0 && (src == 1)) || FETCH_Instr_is_r2_type_a0 || FETCH_Instr_is_s_type_a0 || FETCH_Instr_is_b_type_a0);
-                                 assign L1_reg_a0[4:0] = (src == 1) ? FETCH_Instr_raw_rs1_a0[4:0] : FETCH_Instr_raw_rs2_a0[4:0]; end
+                                 assign L1_reg_a0[4:0] = (src == 1) ? FETCH_Instr_raw_rs1_a0[4:0] : FETCH_Instr_raw_rs2_a0[4:0];
+                              end
                         
                            // Condition signals must not themselves be conditioned (currently).
                            assign FETCH_Instr_dest_reg_a0[4:0] = FETCH_Instr_raw_rd_a0[4:0];   // int only
@@ -1503,7 +1521,20 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                            
                            
                            
-                           for (src = 1; src <= 2; src++) begin : L1b_FETCH_Instr_Src logic L1_is_reg_condition_a0; logic L1_pending_a0; logic [31:0] L1_reg_value_a0; logic [31:0] L1_rf_value_a0; //_/src
+                           for (src = 1; src <= 2; src++) begin : L1b_FETCH_Instr_Src //_/src
+
+                              // For $is_reg_condition.
+                              logic L1_is_reg_condition_a0;
+
+                              // For $pending.
+                              logic L1_pending_a0;
+
+                              // For $reg_value.
+                              logic [31:0] L1_reg_value_a0;
+
+                              // For $rf_value.
+                              logic [31:0] L1_rf_value_a0;
+
                               assign L1_is_reg_condition_a0 = L1_FETCH_Instr_Src[src].L1_is_reg_a0 && FETCH_Instr_valid_decode_a0;  // Note: $is_reg can be set for RISC-V sr0.
                               //_?$is_reg_condition
                                  assign L1_rf_value_a0[31:0] =
@@ -1519,7 +1550,8 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                                     {L1_rf_value_a0, FETCH_Instr_Regs_pending_a0[L1_FETCH_Instr_Src[src].L1_reg_a0]};
                                  /* verilator lint_on WIDTH */
                               // Replay if source register is pending.
-                              assign FETCH_Instr_Src_replay_a0[src] = L1_is_reg_condition_a0 && L1_pending_a0; end
+                              assign FETCH_Instr_Src_replay_a0[src] = L1_is_reg_condition_a0 && L1_pending_a0;
+                           end
                         
                            // Also replay for pending dest reg to keep writes in order. Bypass dest reg pending to support this.
                            assign FETCH_Instr_is_dest_condition_a0 = FETCH_Instr_dest_reg_valid_a0 && FETCH_Instr_valid_decode_a0;
@@ -1534,8 +1566,14 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                            // Combine replay conditions for pending source or dest registers.
                            assign FETCH_Instr_pending_replay_a0 = | FETCH_Instr_Src_replay_a0 || (FETCH_Instr_is_dest_condition_a0 && FETCH_Instr_dest_pending_a0);
                         //_\end_source
-                        for (src = 1; src <= 2; src++) begin : L1c_FETCH_Instr_Src logic L1_dummy_a0, L1_dummy_a1; //_/src
-                           assign L1_dummy_a0 = 1'b0; end  // Dummy signal to pull through $ANY expressions when not building verification harness (since SandPiper currently complains about empty $ANY).
+                        for (src = 1; src <= 2; src++) begin : L1c_FETCH_Instr_Src //_/src
+
+                           // For $dummy.
+                           logic L1_dummy_a0,
+                                 L1_dummy_a1;
+
+                           assign L1_dummy_a0 = 1'b0;  // Dummy signal to pull through $ANY expressions when not building verification harness (since SandPiper currently complains about empty $ANY).
+                        end
             
                         //_\source /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv 88   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 4014 as: m5+ifelse(m5_get(EXT_F), 1,
                            
@@ -2178,11 +2216,31 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                                           // A simple array memory with fixed or RANDOM latency.
                                           // The memory is placed in the fetch pipeline.
                                           // Required for VIZ.
-                                          for (bank = 0; bank <= 3; bank++) begin : L1_FETCH_Instr_Bank logic [31:0] L1_addr_a0; logic [(32 / 4) - 1 : 0] L1_ld_data_a0; logic L1_spec_ld_a0; logic [3:0] L1_st_mask_a0; logic [31:0] L1_st_value_a0; logic L1_valid_st_a0; //_/bank
+                                          for (bank = 0; bank <= 3; bank++) begin : L1_FETCH_Instr_Bank //_/bank
+
+                                             // For $addr.
+                                             logic [31:0] L1_addr_a0;
+
+                                             // For $ld_data.
+                                             logic [(32 / 4) - 1 : 0] L1_ld_data_a0;
+
+                                             // For $spec_ld.
+                                             logic L1_spec_ld_a0;
+
+                                             // For $st_mask.
+                                             logic [3:0] L1_st_mask_a0;
+
+                                             // For $st_value.
+                                             logic [31:0] L1_st_value_a0;
+
+                                             // For $valid_st.
+                                             logic L1_valid_st_a0;
+
                                              assign {L1_addr_a0[31:0], L1_spec_ld_a0, L1_st_mask_a0[3:0], L1_st_value_a0[31:0], L1_valid_st_a0} = {FETCH_Instr_addr_a0, FETCH_Instr_spec_ld_a0, FETCH_Instr_st_mask_a0, FETCH_Instr_st_value_a0, FETCH_Instr_valid_st_a0}; // Find signal from outside of /bank.
                                              //_/mem
                                              //_?$spec_ld
-                                                assign L1_ld_data_a0[(32 / 4) - 1 : 0] = L1b_FETCH_Instr_Bank[bank].L1_Mem_Value_a0[L1_addr_a0[4 + 2 : 2]]; end
+                                                assign L1_ld_data_a0[(32 / 4) - 1 : 0] = L1b_FETCH_Instr_Bank[bank].L1_Mem_Value_a0[L1_addr_a0[4 + 2 : 2]];
+                                          end
                                           // Simple ARRAY memory.
                                           // Combine $ld_data per bank, assuming little-endian.
                                           //$ld_data[31:0] = /bank[*]$ld_data;
@@ -2198,12 +2256,17 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                                           // syntax, so \always_comb is used, and this must be outside of
                                           // when conditions, so we need to use if. <<1 because no <= support
                                           // in this context. (This limitation will be lifted.)
-                                          for (bank = 0; bank <= 3; bank++) begin : L1b_FETCH_Instr_Bank logic [(32 / 4) - 1 : 0] L1_Mem_Value_a0 [31:0]; //_/bank
+                                          for (bank = 0; bank <= 3; bank++) begin : L1b_FETCH_Instr_Bank //_/bank
+
+                                             // For /mem$Value.
+                                             logic [(32 / 4) - 1 : 0] L1_Mem_Value_a0 [31:0];
+
                                              /*SV_plus*/
                                                 always @ (posedge clk) begin
                                                    if (L1_FETCH_Instr_Bank[bank].L1_valid_st_a0 && L1_FETCH_Instr_Bank[bank].L1_st_mask_a0[bank])
                                                       L1_Mem_Value_a0[L1_FETCH_Instr_Bank[bank].L1_addr_a0[4 + 2 : 2]][(32 / 4) - 1 : 0] <= L1_FETCH_Instr_Bank[bank].L1_st_value_a0[(bank + 1) * (32 / 4) - 1: bank * (32 / 4)];
-                                                end end
+                                                end
+                                          end
                                  //_\source /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv 88   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 3262 as: m5+ifelse(m5_get(DMEM_STYLE), ARRAY,
                                     //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 3263   // Instantiated from /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv, 89 as: m4+ANONYMOUS__63.
                                        // Hmmm... nothing more to do for ARRAY memory.
@@ -2227,8 +2290,13 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                               // This scope holds the original load for a returning load.
                               //_/orig_load_inst
                                  assign {FETCH_Instr_OrigLoadInst_addr_a0[1:0], FETCH_Instr_OrigLoadInst_dest_reg_a0[4:0], FETCH_Instr_OrigLoadInst_ld_data_a0[31:0], FETCH_Instr_OrigLoadInst_ld_st_half_a0, FETCH_Instr_OrigLoadInst_ld_st_word_a0, FETCH_Instr_OrigLoadInst_pc_a0[31:0], FETCH_Instr_OrigLoadInst_raw_funct3_a0[2], FETCH_Instr_OrigLoadInst_spec_ld_a0} = {FETCH_Instr_addr_a1[1:0], FETCH_Instr_dest_reg_a1, FETCH_Instr_ld_data_a1, FETCH_Instr_ld_st_half_a1, FETCH_Instr_ld_st_word_a1, FETCH_Instr_pc_a1, FETCH_Instr_raw_funct3_a1[2], FETCH_Instr_spec_ld_a1};
-                                 for (src = 1; src <= 2; src++) begin : L1_FETCH_Instr_OrigLoadInst_Src logic L1_dummy_a0; //_/src
-                                    assign {L1_dummy_a0} = {L1c_FETCH_Instr_Src[src].L1_dummy_a1}; end
+                                 for (src = 1; src <= 2; src++) begin : L1_FETCH_Instr_OrigLoadInst_Src //_/src
+
+                                    // For $dummy.
+                                    logic L1_dummy_a0;
+
+                                    assign {L1_dummy_a0} = {L1c_FETCH_Instr_Src[src].L1_dummy_a1};
+                                 end
                                  //_\source /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv 88   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 3364 as: m5+ifelse(m5_get(EXT_F), 1,
                                     
                                  //_\end_source
@@ -2258,7 +2326,8 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                               //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 4193   // Instantiated from /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv, 89 as: m4+ANONYMOUS__68.
                                  // Write $pending along with $value, but coded differently because it must be reset.
                                  for (regs = 1; regs <= 31; regs++) begin : L1_FETCH_Instr_Regs //_/regs
-                                    assign FETCH_Instr_Regs_pending_n1[regs] = ! FETCH_Instr_reset_a0 && (((regs == FETCH_Instr_wr_reg_a0) && FETCH_Instr_commit_dest_reg_a0) ? FETCH_Instr_reg_wr_pending_a0 : FETCH_Instr_Regs_pending_a0[regs]); end
+                                    assign FETCH_Instr_Regs_pending_n1[regs] = ! FETCH_Instr_reset_a0 && (((regs == FETCH_Instr_wr_reg_a0) && FETCH_Instr_commit_dest_reg_a0) ? FETCH_Instr_reg_wr_pending_a0 : FETCH_Instr_Regs_pending_a0[regs]);
+                                 end
                               //_\end_source
                            //_\end_source
                         /* verilator lint_restore */
@@ -2307,111 +2376,13 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                //_|fetch
                   //_@0
                      //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 5665   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 5683 as: m5+layout_viz(⌈left: 0, top: 0, width: 451, height: 251⌉, "#7AD7F0")
-                        /* Viz omitted here */
-
-
-
-
-
-
+                        
                      //_\end_source
             
                      //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 4678   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 5685 as: m5+instruction_in_memory.
                         for (instr_mem = 0; instr_mem <= 13; instr_mem++) begin : L1b_FETCH_InstrMem //_/instr_mem
-                           /* Viz omitted here */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                           end
+                           
+                        end
                                
                      //_\end_source
             
@@ -2421,328 +2392,7 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                               // For debug.
                               assign FETCH_Instr_mnemonic_a0[10*8-1:0] = FETCH_Instr_is_lui_instr_a0 ? "LUI       " : FETCH_Instr_is_auipc_instr_a0 ? "AUIPC     " : FETCH_Instr_is_jal_instr_a0 ? "JAL       " : FETCH_Instr_is_jalr_instr_a0 ? "JALR      " : FETCH_Instr_is_beq_instr_a0 ? "BEQ       " : FETCH_Instr_is_bne_instr_a0 ? "BNE       " : FETCH_Instr_is_blt_instr_a0 ? "BLT       " : FETCH_Instr_is_bge_instr_a0 ? "BGE       " : FETCH_Instr_is_bltu_instr_a0 ? "BLTU      " : FETCH_Instr_is_bgeu_instr_a0 ? "BGEU      " : FETCH_Instr_is_lb_instr_a0 ? "LB        " : FETCH_Instr_is_lh_instr_a0 ? "LH        " : FETCH_Instr_is_lw_instr_a0 ? "LW        " : FETCH_Instr_is_lbu_instr_a0 ? "LBU       " : FETCH_Instr_is_lhu_instr_a0 ? "LHU       " : FETCH_Instr_is_sb_instr_a0 ? "SB        " : FETCH_Instr_is_sh_instr_a0 ? "SH        " : FETCH_Instr_is_sw_instr_a0 ? "SW        " : FETCH_Instr_is_addi_instr_a0 ? "ADDI      " : FETCH_Instr_is_slti_instr_a0 ? "SLTI      " : FETCH_Instr_is_sltiu_instr_a0 ? "SLTIU     " : FETCH_Instr_is_xori_instr_a0 ? "XORI      " : FETCH_Instr_is_ori_instr_a0 ? "ORI       " : FETCH_Instr_is_andi_instr_a0 ? "ANDI      " : FETCH_Instr_is_slli_instr_a0 ? "SLLI      " : FETCH_Instr_is_srli_instr_a0 ? "SRLI      " : FETCH_Instr_is_srai_instr_a0 ? "SRAI      " : FETCH_Instr_is_add_instr_a0 ? "ADD       " : FETCH_Instr_is_sub_instr_a0 ? "SUB       " : FETCH_Instr_is_sll_instr_a0 ? "SLL       " : FETCH_Instr_is_slt_instr_a0 ? "SLT       " : FETCH_Instr_is_sltu_instr_a0 ? "SLTU      " : FETCH_Instr_is_xor_instr_a0 ? "XOR       " : FETCH_Instr_is_srl_instr_a0 ? "SRL       " : FETCH_Instr_is_sra_instr_a0 ? "SRA       " : FETCH_Instr_is_or_instr_a0 ? "OR        " : FETCH_Instr_is_and_instr_a0 ? "AND       " : FETCH_Instr_is_csrrw_instr_a0 ? "CSRRW     " : FETCH_Instr_is_csrrs_instr_a0 ? "CSRRS     " : FETCH_Instr_is_csrrc_instr_a0 ? "CSRRC     " : FETCH_Instr_is_csrrwi_instr_a0 ? "CSRRWI    " : FETCH_Instr_is_csrrsi_instr_a0 ? "CSRRSI    " : FETCH_Instr_is_csrrci_instr_a0 ? "CSRRCI    " :  "ILLEGAL   ";
                               `BOGUS_USE(FETCH_Instr_mnemonic_a0)
-                           /* Viz omitted here */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                           
                         //_\end_source
                         //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 4777   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 5689 as: m5+registers(/instr, int, Int RF, , 2, ⌈left: 350 + 605, top: 10⌉)
                            // /regs or /fpu_regs
@@ -2752,421 +2402,31 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                               // These are unconditioned versions of the problematic signals.
                               assign FETCH_Instr_Src_unconditioned_reg_a0[src][4:0] = L1_FETCH_Instr_Src[src].L1_reg_a0;
                               assign FETCH_Instr_Src_unconditioned_is_reg_a0[src] = L1_FETCH_Instr_Src[src].L1_is_reg_a0;
-                              assign FETCH_Instr_Src_unconditioned_reg_value_a0[src][31:0] = L1b_FETCH_Instr_Src[src].L1_reg_value_a0; end
+                              assign FETCH_Instr_Src_unconditioned_reg_value_a0[src][31:0] = L1b_FETCH_Instr_Src[src].L1_reg_value_a0;
+                           end
                            
                            for (regs = 1; regs <= 31; regs++) begin : L1b_FETCH_Instr_Regs //_/regs
-                              /* Viz omitted here */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                              end
+                              
+                           end
                         //_\end_source
                         //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 5172   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 5690 as: m5+register_csr(/regcsr, ⌈left: 103 + 605, top: 190⌉)
                            //_/regcsr
-                              /* Viz omitted here */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                              
                         //_\end_source
                         //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 4864   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 5691 as: m5+pipeline_control_viz(/pipe_ctrl, ⌈left: 103 + 605, top: 265 + 18 * m5_get(num_csrs), width: 220, height: 330⌉)
                            assign FETCH_Instr_first_issue_a0 = FETCH_Instr_commit_a0 && FETCH_Instr_would_second_issue_a0;
                            //_/pipe_ctrl
-                              /* Viz omitted here */
-
-
-
-
-
-
-
-
-
-
-
-
-
+                              
                               //_/logic_diagram
-                                 /* Viz omitted here */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                 
                               //_/waterfall
-                                 /* Viz omitted here */
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                 
                                  for (pipe_ctrl_instr = 0; pipe_ctrl_instr <= 2; pipe_ctrl_instr++) begin : L1_FETCH_Instr_PipeCtrl_Waterfall_PipeCtrlInstr //_/pipe_ctrl_instr  // Zero on the bottom. See this.getInstrIndex().
-                                    /* Viz omitted here */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                    
                                     for (pipe_ctrl_stage = 0; pipe_ctrl_stage <= 1; pipe_ctrl_stage++) begin : L2_PipeCtrlStage //_/pipe_ctrl_stage
-                                       /* Viz omitted here */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                       end end
+                                       
+                                    end
+                                 end
                         //_\end_source
                         //_\source /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv 88   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 5692 as: m5+ifelse(m5_get(EXT_F), 1,
                            
@@ -3175,135 +2435,14 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                            //_\source /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv 88   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 5531 as: m5+ifelse(m5__l(5531)m5_calc(m5__l(5531)m5_eq(m5_get(DMEM_STYLE), ARRAY) || m5__l(5531)m5_eq(m5_get(DMEM_STYLE), RANDOM)), 1,
                               //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 5532   // Instantiated from /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv, 89 as: m4+ANONYMOUS__71.
                                  for (mem = 0; mem <= 31; mem++) begin : L1_FETCH_Instr_Mem //_/mem
-                                    /* Viz omitted here */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                    end
+                                    
+                                 end
                                  for (bank = 0; bank <= 3; bank++) begin : L1c_FETCH_Instr_Bank //_/bank 
-                                    /* Viz omitted here */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                    
                                     for (mem = 0; mem <= 31; mem++) begin : L2b_Mem //_/mem
-                                       /* Viz omitted here */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                       end end
+                                       
+                                    end
+                                 end
                               //_\end_source
                            //_\end_source
                         //_\end_source
