@@ -60,9 +60,9 @@ module tt_um_warpv (
    m5+warpv_top()
 
    // Connect IOs.
-   uo_out = {6'b0, failed, passed};
-   uio_out = 8'b0;
-   uio_oe = 8'b0;
+   *uo_out = {6'b0, *failed, *passed};
+   *uio_out = 8'b0;
+   *uio_oe = 8'b0;
 
 \SV
 endmodule
