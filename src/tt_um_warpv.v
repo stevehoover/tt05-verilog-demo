@@ -278,6 +278,9 @@ logic FETCH_Instr_div_mul_a0;
 // For |fetch/instr$equal.
 logic FETCH_Instr_equal_a0;
 
+// For |fetch/instr$failed.
+logic FETCH_Instr_failed_a0;
+
 // For |fetch/instr$fetch.
 logic FETCH_Instr_fetch_a0;
 
@@ -622,6 +625,9 @@ logic [31:0] FETCH_Instr_or_rslt_a0;
 
 // For |fetch/instr$ori_rslt.
 logic [31:0] FETCH_Instr_ori_rslt_a0;
+
+// For |fetch/instr$passed.
+logic FETCH_Instr_passed_a0;
 
 // For |fetch/instr$pc.
 logic [31:0] FETCH_Instr_pc_a0,
@@ -3307,6 +3313,26 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
             
          //_\end_source
       //_\end_source
+   //_\end_source
+   //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 6349   // Instantiated from tt_um_warpv.tlv, 61 as: m5+warpv_makerchip_tb()
+      
+      
+      //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 4200   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 6352 as: m5+call(m5_get(tb_macro_name))
+         //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 1227   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 4201 as: m5+default_makerchip_tb()
+            //_|fetch
+               //_/instr
+                  //_@0
+                     assign FETCH_Instr_passed_a0 = ! FETCH_Instr_reset_a0 && (FETCH_Instr_Pc_a0 == 52) && FETCH_Instr_good_path_a0;
+                     assign FETCH_Instr_failed_a0 = cyc_cnt > 200  || ((FETCH_Instr_Pc_a0 == 48) && FETCH_Instr_good_path_a0);
+         //_\end_source
+      //_\end_source
+   //_\end_source
+   //_\source /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv 6334   // Instantiated from tt_um_warpv.tlv, 62 as: m5+makerchip_pass_fail()
+      //_|done
+         //_@0
+            // Assert these to end simulation (before Makerchip cycle limit).
+            assign passed = & FETCH_Instr_passed_a0;
+            assign failed = | FETCH_Instr_failed_a0;
    //_\end_source
 
    // Connect IOs.

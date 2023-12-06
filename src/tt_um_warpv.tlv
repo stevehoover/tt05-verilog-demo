@@ -58,6 +58,8 @@ module tt_um_warpv (
 \TLV
    /* verilator lint_off UNOPTFLAT */
    m5+warpv_top()
+   m5+warpv_makerchip_tb()
+   m5+makerchip_pass_fail()
 
    // Connect IOs.
    *uo_out = {6'b0, *failed, *passed};
