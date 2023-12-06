@@ -55,6 +55,7 @@ module tt_um_warpv (
 
    wire reset = ! rst_n;
    wire passed, failed;
+   wire [31:0] cyc_cnt = 32'd0;  // Used by test bench (default WARP-V Makerchip test bench). Don't actually count. Never fail due to timeout by this mechanism.
 \TLV
    /* verilator lint_off UNOPTFLAT */
    m5+warpv_top()
