@@ -31,11 +31,13 @@ async def test_makerchip(dut):
 
         await ClockCycles(dut.clk, 1)
         
-        if dut.passed:
+        passed = uo_out & 1
+        failed = uo_out & 2
+        if passed:
             dut._log.info("passed")
             break
 
-        assert not dut.failed
+        assert not failed
 
         cyc += 1
         assert cyc < max_cyc
