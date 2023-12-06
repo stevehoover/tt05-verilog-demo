@@ -2,11 +2,15 @@ import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import RisingEdge, FallingEdge, Timer, ClockCycles
 
-
-segments = [ 63, 6, 91, 79, 102, 109, 125, 7, 127, 111 ]
+# Test bench for Tiny Tapeout for any design using the following Makerchip-compatible interface.
+# The IOs are:
+#   Inputs: none
+#   Outputs:
+#      uo_out[0]: passed: 1 bit output, set to 1 when the test passes
+#      uo_out[1]: failed: 1 bit output, set to 1 when the test fails
 
 @cocotb.test()
-async def test_7seg(dut):
+async def test_makerchip(dut):
     dut._log.info("start")
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
@@ -14,35 +18,24 @@ async def test_7seg(dut):
     # reset
     dut._log.info("reset")
     dut.rst_n.value = 0
-    # set the compare value
-    dut.ui_in.value = 1
+    dut.ui_in.value = 0
+    dut.uio_in.value = 0
+    dut.ena.value = 1  # TODO: What's correct for this?
     await ClockCycles(dut.clk, 10)
     dut.rst_n.value = 1
 
-    # the compare value is shifted 10 bits inside the design to allow slower counting
-    max_count = dut.ui_in.value << 10
-    dut._log.info(f"check all segments with MAX_COUNT set to {max_count}")
-    # check all segments and roll over
-    for i in range(15):
-        dut._log.info("check segment {}".format(i))
-        await ClockCycles(dut.clk, max_count)
-        assert int(dut.segments.value) == segments[i % 10]
+    # run until passed or failed or max cycles
+    max_cyc = 1000
+    cyc = 0
+    while cyc < max_cyc:
 
-        # all bidirectionals are set to output
-        assert dut.uio_oe == 0xFF
+        await ClockCycles(dut.clk, 1)
+        
+        if dut.passed:
+            dut._log.info("passed")
+            break
 
-    # reset
-    dut.rst_n.value = 0
-    # set a different compare value
-    dut.ui_in.value = 3
-    await ClockCycles(dut.clk, 10)
-    dut.rst_n.value = 1
+        assert not dut.failed
 
-    max_count = dut.ui_in.value << 10
-    dut._log.info(f"check all segments with MAX_COUNT set to {max_count}")
-    # check all segments and roll over
-    for i in range(15):
-        dut._log.info("check segment {}".format(i))
-        await ClockCycles(dut.clk, max_count)
-        assert int(dut.segments.value) == segments[i % 10]
-
+        cyc += 1
+        assert cyc < max_cyc
