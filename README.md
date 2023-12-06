@@ -6,9 +6,16 @@ TinyTapeout is an educational project that aims to make it easier and cheaper th
 
 To learn more and get started, visit https://tinytapeout.com.
 
-## Verilog Projects
+## TL-Verilog Projects
 
-Edit the [info.yaml](info.yaml) and uncomment the `source_files` and `top_module` properties, and change the value of `language` to "Verilog". Add your Verilog files to the `src` folder, and list them in the `source_files` property.
+Add your TL-Verilog files to the `src` folder or edit tt_um_template.tlv. Any `.tlv` file will be compiled to a single `.v` file by `make`.
+Both the `.tlv` file and its generated `.v` will be committed to the repository. Continuous integration (CI) testing triggered by pushing
+to GitHub treats the Verilog file as the source. It does not (currently) automatically compile from the TL-Verilog source. So be sure to
+run `make` before committing changes.
+
+In Makefile, list your files in the `source_files` variable.
+
+Edit the [info.yaml](info.yaml) as described in its comments.
 
 The GitHub action will automatically build the ASIC files using [OpenLane](https://www.zerotoasiccourse.com/terminology/openlane/).
 
