@@ -31,8 +31,8 @@ async def test_makerchip(dut):
 
         await ClockCycles(dut.clk, 1)
         
-        passed = uo_out & 1
-        failed = uo_out & 2
+        passed = dut.uo_out & 1
+        failed = dut.uo_out & 2
         if passed:
             dut._log.info("passed")
             break
