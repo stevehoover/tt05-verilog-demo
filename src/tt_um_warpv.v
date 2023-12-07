@@ -855,9 +855,6 @@ logic [4:0] FETCH_Instr_OrigInst_dest_reg_a0;
 // For |fetch/instr/orig_inst$pc.
 logic [31:0] FETCH_Instr_OrigInst_pc_a0;
 
-// For |fetch/instr/orig_inst/src$dummy.
-logic [2:1] FETCH_Instr_OrigInst_Src_dummy_a0;
-
 // For |fetch/instr/orig_load_inst$addr.
 logic [1:0] FETCH_Instr_OrigLoadInst_addr_a0;
 
@@ -1034,15 +1031,6 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
          for (regs = 1; regs <= 31; regs++) begin : L1gen_FETCH_Instr_Regs
             // Staging of $pending.
             always_ff @(posedge clk) FETCH_Instr_Regs_pending_a0[regs] <= FETCH_Instr_Regs_pending_n1[regs];
-
-         end
-
-         //
-         // Scope: /src[2:1]
-         //
-         for (src = 1; src <= 2; src++) begin : L1gen_FETCH_Instr_Src
-            // Staging of $dummy.
-            always_ff @(posedge clk) L1c_FETCH_Instr_Src[src].L1_dummy_a1 <= L1c_FETCH_Instr_Src[src].L1_dummy_a0;
 
          end
 
@@ -1312,13 +1300,6 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                            //_/orig_inst
                               // pull values from /orig_load_inst or /hold_inst depending on which second issue
                               assign {FETCH_Instr_OrigInst_dest_reg_a0[4:0], FETCH_Instr_OrigInst_pc_a0[31:0]} = FETCH_Instr_second_issue_ld_a0 ? {FETCH_Instr_OrigLoadInst_dest_reg_a0, FETCH_Instr_OrigLoadInst_pc_a0} : {FETCH_Instr_OrigLoadInst_dest_reg_a0, FETCH_Instr_OrigLoadInst_pc_a0} /* default case is invalid, but this choice should enable logic to reduce well */;
-                              for (src = 1; src <= 2; src++) begin : L1_FETCH_Instr_OrigInst_Src //_/src
-
-                                 assign {FETCH_Instr_OrigInst_Src_dummy_a0[src]} = FETCH_Instr_second_issue_ld_a0 ? {L1_FETCH_Instr_OrigLoadInst_Src[src].L1_dummy_a0} : {L1_FETCH_Instr_OrigLoadInst_Src[src].L1_dummy_a0};
-                              end
-                              //_\source /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv 88   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 3968 as: m5+ifelse(m5_get(EXT_F), 1,
-                                 
-                              //_\end_source
             
                         // Decode of the fetched instruction
                         assign FETCH_Instr_valid_decode_a0 = FETCH_Instr_fetch_a0;  // Always decode if we fetch.
@@ -1566,14 +1547,6 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                            // Combine replay conditions for pending source or dest registers.
                            assign FETCH_Instr_pending_replay_a0 = | FETCH_Instr_Src_replay_a0 || (FETCH_Instr_is_dest_condition_a0 && FETCH_Instr_dest_pending_a0);
                         //_\end_source
-                        for (src = 1; src <= 2; src++) begin : L1c_FETCH_Instr_Src //_/src
-
-                           // For $dummy.
-                           logic L1_dummy_a0,
-                                 L1_dummy_a1;
-
-                           assign L1_dummy_a0 = 1'b0;  // Dummy signal to pull through $ANY expressions when not building verification harness (since SandPiper currently complains about empty $ANY).
-                        end
             
                         //_\source /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv 88   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 4014 as: m5+ifelse(m5_get(EXT_F), 1,
                            
@@ -2290,13 +2263,7 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                               // This scope holds the original load for a returning load.
                               //_/orig_load_inst
                                  assign {FETCH_Instr_OrigLoadInst_addr_a0[1:0], FETCH_Instr_OrigLoadInst_dest_reg_a0[4:0], FETCH_Instr_OrigLoadInst_ld_data_a0[31:0], FETCH_Instr_OrigLoadInst_ld_st_half_a0, FETCH_Instr_OrigLoadInst_ld_st_word_a0, FETCH_Instr_OrigLoadInst_pc_a0[31:0], FETCH_Instr_OrigLoadInst_raw_funct3_a0[2], FETCH_Instr_OrigLoadInst_spec_ld_a0} = {FETCH_Instr_addr_a1[1:0], FETCH_Instr_dest_reg_a1, FETCH_Instr_ld_data_a1, FETCH_Instr_ld_st_half_a1, FETCH_Instr_ld_st_word_a1, FETCH_Instr_pc_a1, FETCH_Instr_raw_funct3_a1[2], FETCH_Instr_spec_ld_a1};
-                                 for (src = 1; src <= 2; src++) begin : L1_FETCH_Instr_OrigLoadInst_Src //_/src
 
-                                    // For $dummy.
-                                    logic L1_dummy_a0;
-
-                                    assign {L1_dummy_a0} = {L1c_FETCH_Instr_Src[src].L1_dummy_a1};
-                                 end
                                  //_\source /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv 88   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 3364 as: m5+ifelse(m5_get(EXT_F), 1,
                                     
                                  //_\end_source
@@ -2339,9 +2306,6 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                      //_\source /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv 88   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 4108 as: m5+ifelse(m5_get(EXT_F), 1,
                         
                      //_\end_source
-            
-                     //_@0
-                        `BOGUS_USE(FETCH_Instr_OrigInst_Src_dummy_a0[2]) // To pull $dummy through $ANY expressions, avoiding empty expressions.
             
                      // TODO. Seperate the $rslt and $reg_wr_pending committed to both "int" and "fpu" regs.
             //_\end_source
@@ -2476,8 +2440,7 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
    //_\end_source
 
    // Connect IOs.
-   assign uo_out = {5'b0, & FETCH_Instr_OrigInst_Src_dummy_a0, failed, passed};
-       // The use of $dummy above is needed to avoid a dangle that Yosys chokes on.
+   assign uo_out = {6'b0, failed, passed};
    assign uio_out = 8'b0;
    assign uio_oe = 8'b0;
 

@@ -63,8 +63,7 @@ module tt_um_warpv (
    m5+makerchip_pass_fail()
 
    // Connect IOs.
-   *uo_out = {5'b0, & |fetch/instr/orig_inst/src[*]<>0$dummy, *failed, *passed};
-       // The use of $dummy above is needed to avoid a dangle that Yosys chokes on.
+   *uo_out = {6'b0, *failed, *passed};
    *uio_out = 8'b0;
    *uio_oe = 8'b0;
 
