@@ -855,6 +855,9 @@ logic [4:0] FETCH_Instr_OrigInst_dest_reg_a0;
 // For |fetch/instr/orig_inst$pc.
 logic [31:0] FETCH_Instr_OrigInst_pc_a0;
 
+// For |fetch/instr/orig_inst/src$dummy.
+logic [2:1] FETCH_Instr_OrigInst_Src_dummy_a0;
+
 // For |fetch/instr/orig_load_inst$addr.
 logic [1:0] FETCH_Instr_OrigLoadInst_addr_a0;
 
@@ -1311,10 +1314,7 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                               assign {FETCH_Instr_OrigInst_dest_reg_a0[4:0], FETCH_Instr_OrigInst_pc_a0[31:0]} = FETCH_Instr_second_issue_ld_a0 ? {FETCH_Instr_OrigLoadInst_dest_reg_a0, FETCH_Instr_OrigLoadInst_pc_a0} : {FETCH_Instr_OrigLoadInst_dest_reg_a0, FETCH_Instr_OrigLoadInst_pc_a0} /* default case is invalid, but this choice should enable logic to reduce well */;
                               for (src = 1; src <= 2; src++) begin : L1_FETCH_Instr_OrigInst_Src //_/src
 
-                                 // For $dummy.
-                                 logic L1_dummy_a0;
-
-                                 assign {L1_dummy_a0} = FETCH_Instr_second_issue_ld_a0 ? {L1_FETCH_Instr_OrigLoadInst_Src[src].L1_dummy_a0} : {L1_FETCH_Instr_OrigLoadInst_Src[src].L1_dummy_a0};
+                                 assign {FETCH_Instr_OrigInst_Src_dummy_a0[src]} = FETCH_Instr_second_issue_ld_a0 ? {L1_FETCH_Instr_OrigLoadInst_Src[src].L1_dummy_a0} : {L1_FETCH_Instr_OrigLoadInst_Src[src].L1_dummy_a0};
                               end
                               //_\source /raw.githubusercontent.com/stevehoover/tlvlib/3543cfd9d7ef9ae3b1e5750614583959a672084d/fundamentalslib.tlv 88   // Instantiated from /raw.githubusercontent.com/stevehoover/warpv/2bd28077b7526d460f4615e687ab71e074a35f5a/warpv.tlv, 3968 as: m5+ifelse(m5_get(EXT_F), 1,
                                  
@@ -2341,7 +2341,7 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
                      //_\end_source
             
                      //_@0
-                        `BOGUS_USE(L1_FETCH_Instr_OrigInst_Src[2].L1_dummy_a0) // To pull $dummy through $ANY expressions, avoiding empty expressions.
+                        `BOGUS_USE(FETCH_Instr_OrigInst_Src_dummy_a0[2]) // To pull $dummy through $ANY expressions, avoiding empty expressions.
             
                      // TODO. Seperate the $rslt and $reg_wr_pending committed to both "int" and "fpu" regs.
             //_\end_source
@@ -2476,7 +2476,8 @@ logic [40*8-1:0] FETCH_InstrMem_instr_str_a0 [13:0];
    //_\end_source
 
    // Connect IOs.
-   assign uo_out = {6'b0, failed, passed};
+   assign uo_out = {5'b0, & FETCH_Instr_OrigInst_Src_dummy_a0, failed, passed};
+       // The use of $dummy above is needed to avoid a dangle that Yosys chokes on.
    assign uio_out = 8'b0;
    assign uio_oe = 8'b0;
 
