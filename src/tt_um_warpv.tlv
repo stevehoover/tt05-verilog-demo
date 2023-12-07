@@ -37,10 +37,11 @@
    var(LD_RETURN_ALIGN, 1)
 
    /var(DMEM_STYLE, SRAM)
+   var(IMPLEMENT_REG0, 1)
 \SV
    // Include WARP-V.
    
-   m4_include_lib(['https://raw.githubusercontent.com/stevehoover/warp-v/2bd28077b7526d460f4615e687ab71e074a35f5a/warp-v.tlv'])
+   m4_include_lib(['https://raw.githubusercontent.com/stevehoover/warp-v/bc141b721d1c863dc10305d6e3e4ba38a81dd2eb/warp-v.tlv'])
 
 //`default_nettype none
 
