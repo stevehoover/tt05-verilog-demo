@@ -35,12 +35,14 @@
    var(REG_WR_STAGE, 0)
    var(MEM_WR_STAGE, 0)
    var(LD_RETURN_ALIGN, 1)
+
+   /var(DMEM_STYLE, SRAM)
 \SV
    // Include WARP-V.
    
    m4_include_lib(['https://raw.githubusercontent.com/stevehoover/warp-v/2bd28077b7526d460f4615e687ab71e074a35f5a/warp-v.tlv'])
 
-`default_nettype none
+//`default_nettype none
 
 module tt_um_warpv (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
