@@ -14,8 +14,7 @@ VERILOG_SOURCES += $(PWD)/tb.v $(PWD)/tt_um_calculator.v
 # Verilog from TL-Verilog.
 %.v: %.tlv
 	sandpiper-saas -i '$(<F)' -o '$(@F)' --outdir sandpiper_out --inlineGen --noDirectiveComments --noline --clkAlways --bestsv --iArgs
-	mv sandpiper_out/$@ .
-
+	mv sandpiper_out/$(@F) .
 else
 
 # gate level simulation requires some extra setup, you shouldn't need to touch this
