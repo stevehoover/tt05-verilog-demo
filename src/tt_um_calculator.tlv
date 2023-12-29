@@ -21,28 +21,28 @@
       @1
          // Board inputs
          $op[2:0] = *ui_in[7:5];
-         $val2[31:0] = {27'b0, *ui_in[4:0]};
+         $val2[7:0] = {3'b0, *ui_in[4:0]};
          
-         $val1[31:0] = >>2$out;
-         //$val2[31:0] = $rand2[3:0];
+         $val1[7:0] = >>2$out;
+         //$val2[7:0] = $rand2[3:0];
          $valid = $reset ? 1'b0 : >>1$valid + 1'b1;
          $reset_or_valid = $valid || $reset;
       ?$reset_or_valid
          @1
-            $sum[31:0] = $val1 + $val2;
-            $diff[31:0] = $val1 - $val2;
-            $prod[31:0] = $val1 * $val2;
-            $quot[31:0] = $val1 / $val2;
+            $sum[7:0] = $val1 + $val2;
+            $diff[7:0] = $val1 - $val2;
+            $prod[7:0] = $val1 * $val2;
+            $quot[7:0] = $val1 / $val2;
          @2
-            $mem[31:0] = $reset           ? 32'b0 :
-                            ($op[2:0] == 3'b101) ? $val1 :
+            $mem[7:0] = $reset               ? 16'b0 :
+                        ($op[2:0] == 3'b101) ? $val1 :
                                                >>2$mem;
-            $out[31:0] = $reset           ? 32'b0 :
-                         ($op == 3'b000) ? $sum  :
-                         ($op == 3'b001) ? $diff :
-                         ($op == 3'b010) ? $prod :
-                         ($op == 3'b011) ? $quot :
-                         ($op == 3'b100) ? >>2$mem : >>2$out;
+            $out[7:0] = $reset          ? 8'b0 :
+                        ($op == 3'b000) ? $sum  :
+                        ($op == 3'b001) ? $diff :
+                        ($op == 3'b010) ? $prod :
+                        ($op == 3'b011) ? $quot :
+                        ($op == 3'b100) ? >>2$mem : >>2$out;
       @2
          m5+sseg_decoder($uo_out, $out[3:0])
    \SV_plus
