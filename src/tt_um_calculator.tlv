@@ -44,8 +44,7 @@
                          ($op == 3'b011) ? $quot :
                          ($op == 3'b100) ? >>2$mem : >>2$out;
       @2
-         m5+sseg_decoder(*uo_out, $out[3:0])
-         *uo_out[7] = 1'b1;  // No decimal point.
+         m5+sseg_decoder($uo_out, $out[3:0])
    \SV_plus
       m5_if_defined_as(MAKERCHIP, 1, ['logic [256:0] RW_rand_vect = top.RW_rand_vect;'])
       m5_if_defined_as(MAKERCHIP, 1, ['logic [31:0] cyc_cnt = top.cyc_cnt;'])
@@ -67,7 +66,7 @@ m4_makerchip_module
    // Instantiate the Tiny Tapeout module.
    tt_um_calculator tt(.*);
    
-   assign failed = cyc_cnt > 50;
+   assign passed = cyc_cnt > 50;
 endmodule
 
 module tt_um_calculator (
@@ -86,6 +85,12 @@ module tt_um_calculator (
    // Connect Tiny Tapeout I/Os to Virtual FPGA Lab.
    m5+tt_connections()
    m5+board(/top, /fpga, 7, $, , fpga_calculator)   // 3rd arg selects the board.
+   
+   // Connect outputs.
+   // Note that TL-Verilog fpga_logic will be under /fpga_pins/fpga.
+   *uo_out = /fpga_pins/fpga|calc>>2$uo_out;
+   *uio_out = 8'b0;
+   *uio_oe = 8'b0;
 
 \SV
    endmodule

@@ -3,7 +3,7 @@
 //_\SV
    // Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlv_lib/fpga_includes.tlv"
    // Included URL: "https://raw.githubusercontent.com/stevehoover/MEST_Course/53d95456e5d2f2e4bf6edb9d8f15d09f8c8c2151/tlv_lib/calculator_shell_lib.tlv"
-//_\source tt_um_calculator.tlv 52
+//_\source tt_um_calculator.tlv 51
 
 
 /*SV_plus*/
@@ -21,7 +21,7 @@ module top(input wire clk, input wire reset, input wire [31:0] cyc_cnt, output w
    // Instantiate the Tiny Tapeout module.
    tt_um_calculator tt(.*);
 
-   assign failed = cyc_cnt > 50;
+   assign passed = cyc_cnt > 50;
 endmodule
 
 module tt_um_calculator (
@@ -103,6 +103,9 @@ logic FpgaPins_Fpga_CALC_reset_or_valid_a1,
 logic [31:0] FpgaPins_Fpga_CALC_sum_a1,
              FpgaPins_Fpga_CALC_sum_a2;
 
+// For /fpga_pins/fpga|calc$uo_out.
+logic [6:0] FpgaPins_Fpga_CALC_uo_out_a2;
+
 // For /fpga_pins/fpga|calc$val1.
 logic [31:0] FpgaPins_Fpga_CALC_val1_a1,
              FpgaPins_Fpga_CALC_val1_a2;
@@ -174,13 +177,13 @@ logic FpgaPins_Fpga_CALC_valid_a1,
 // ---------- Generated Code Ends ----------
 //_\TLV
    // Connect Tiny Tapeout I/Os to Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv 839   // Instantiated from tt_um_calculator.tlv, 87 as: m5+tt_connections()
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv 839   // Instantiated from tt_um_calculator.tlv, 86 as: m5+tt_connections()
       assign L0_slideswitch_a0[7:0] = ui_in;
       assign L0_sseg_segment_n_a0[6:0] = uo_out[6:0];
       assign L0_sseg_decimal_point_n_a0 = uo_out[7];
       assign L0_sseg_digit_n_a0[7:0] = 8'b11111110;
    //_\end_source
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv 304   // Instantiated from tt_um_calculator.tlv, 88 as: m5+board(/top, /fpga, 7, $, , fpga_calculator)
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv 304   // Instantiated from tt_um_calculator.tlv, 87 as: m5+board(/top, /fpga, 7, $, , fpga_calculator)
       
       //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv 352   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv, 306 as: m4+thanks(m5__l(306)m5_eval(m5_get(BOARD_THANKS_ARGS)))
          //_/thanks
@@ -227,8 +230,8 @@ logic FpgaPins_Fpga_CALC_valid_a1,
                                      (FpgaPins_Fpga_CALC_op_a2 == 3'b011) ? FpgaPins_Fpga_CALC_quot_a2 :
                                      (FpgaPins_Fpga_CALC_op_a2 == 3'b100) ? FpgaPins_Fpga_CALC_mem_a4 : FpgaPins_Fpga_CALC_out_a4;
                   //_@2
-                     //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv 816   // Instantiated from tt_um_calculator.tlv, 47 as: m5+sseg_decoder(*uo_out, $out[3:0])
-                        assign uo_out[6:0] =
+                     //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv 816   // Instantiated from tt_um_calculator.tlv, 47 as: m5+sseg_decoder($uo_out, $out[3:0])
+                        assign FpgaPins_Fpga_CALC_uo_out_a2[6:0] =
                              (FpgaPins_Fpga_CALC_out_a2[3:0] == 0) ? 7'b1000000 : // '0'
                              (FpgaPins_Fpga_CALC_out_a2[3:0] == 1) ? 7'b1001111 : // '1'
                              (FpgaPins_Fpga_CALC_out_a2[3:0] == 2) ? 7'b0010010 : // '2'
@@ -247,11 +250,10 @@ logic FpgaPins_Fpga_CALC_valid_a1,
                              (FpgaPins_Fpga_CALC_out_a2[3:0] == 15) ? 7'b0111000 : // 'f'
                              7'b1111111 ;                // 'nothing'
                      //_\end_source
-                     assign uo_out[7] = 1'b1;  // No decimal point.
                /*SV_plus*/
                   
                   
-               //_\source /raw.githubusercontent.com/stevehoover/MESTCourse/53d95456e5d2f2e4bf6edb9d8f15d09f8c8c2151/tlvlib/calculatorshelllib.tlv 4   // Instantiated from tt_um_calculator.tlv, 52 as: m4+cal_viz(@2, /fpga)
+               //_\source /raw.githubusercontent.com/stevehoover/MESTCourse/53d95456e5d2f2e4bf6edb9d8f15d09f8c8c2151/tlvlib/calculatorshelllib.tlv 4   // Instantiated from tt_um_calculator.tlv, 51 as: m4+cal_viz(@2, /fpga)
                   // Only for Makerchip.
                   
                //_\end_source
@@ -290,6 +292,12 @@ logic FpgaPins_Fpga_CALC_valid_a1,
       // pushbuttons
       
    //_\end_source   // 3rd arg selects the board.
+
+   // Connect outputs.
+   // Note that TL-Verilog fpga_logic will be under /fpga_pins/fpga.
+   assign uo_out = FpgaPins_Fpga_CALC_uo_out_a2;
+   assign uio_out = 8'b0;
+   assign uio_oe = 8'b0;
 
 //_\SV
    endmodule
