@@ -8,7 +8,7 @@
    **/
    use(m5-1.0)
 \SV
-   m4_include_lib(['https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/688264a4a089e1beebf74866c562f1e5578d8c54/tlv_lib/fpga_includes.tlv'])
+   m4_include_lib(['https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlv_lib/fpga_includes.tlv'])
    m4_include_lib(['https://raw.githubusercontent.com/stevehoover/RISC-V_MYTH_Workshop/a1fe1d47a27ab722375ffe996564c9012e3bb1fd/tlv_lib/calculator_shell_lib.tlv'])
    
 // Example using LEDs to display a binary counter.
@@ -19,8 +19,12 @@
          //m5+fpga_heartbeat($refresh, 1, 50000000)
          $reset = *reset;
       @1
+         // Board inputs
+         $op[2:0] = *ui_in[7:5];
+         $val2[31:0] = {27'b0, *ui_in[4:0]};
+         
          $val1[31:0] = >>2$out;
-         $val2[31:0] = $rand2[3:0];
+         //$val2[31:0] = $rand2[3:0];
          $valid = $reset ? 1'b0 : >>1$valid + 1'b1;
          $reset_or_valid = $valid || $reset;
       ?$reset_or_valid
@@ -43,9 +47,9 @@
          m5+sseg_decoder(*uo_out, $out[3:0])
          *uo_out[7] = 1'b1;  // No decimal point.
    \SV_plus
-      m5_if_var_def(MAKERCHIP, ['logic [256:0] RW_rand_vect = top.RW_rand_vect;'])
-      m5_if_var_def(MAKERCHIP, ['logic [31:0] cyc_cnt = top.cyc_cnt;'])
-   m4+cal_viz(@2, /_fpga)
+      m5_if_defined_as(MAKERCHIP, 1, ['logic [256:0] RW_rand_vect = top.RW_rand_vect;'])
+      m5_if_defined_as(MAKERCHIP, 1, ['logic [31:0] cyc_cnt = top.cyc_cnt;'])
+   m5_if_defined_as(MAKERCHIP, 1, ['m4+cal_viz(@2, /_fpga)'])
 
 \SV_plus
 
@@ -58,7 +62,7 @@ m4_makerchip_module
    assign m4_rand(uio_in, 7, 0)
    logic ena = 1'b0;
    logic rst_n = ! reset;
-                   
+   
    // Instantiate the Tiny Tapeout module.
    tt_um_calculator tt(.*);
    
