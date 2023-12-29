@@ -9,7 +9,7 @@
    use(m5-1.0)
 \SV
    m4_include_lib(['https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlv_lib/fpga_includes.tlv'])
-   m4_include_lib(['https://raw.githubusercontent.com/stevehoover/RISC-V_MYTH_Workshop/a1fe1d47a27ab722375ffe996564c9012e3bb1fd/tlv_lib/calculator_shell_lib.tlv'])
+   m4_include_lib(['https://raw.githubusercontent.com/stevehoover/MEST_Course/53d95456e5d2f2e4bf6edb9d8f15d09f8c8c2151/tlv_lib/calculator_shell_lib.tlv'])
    
 // Example using LEDs to display a binary counter.
 \TLV fpga_calculator(/_fpga)
@@ -49,7 +49,8 @@
    \SV_plus
       m5_if_defined_as(MAKERCHIP, 1, ['logic [256:0] RW_rand_vect = top.RW_rand_vect;'])
       m5_if_defined_as(MAKERCHIP, 1, ['logic [31:0] cyc_cnt = top.cyc_cnt;'])
-   m5_if_defined_as(MAKERCHIP, 1, ['m4+cal_viz(@2, /_fpga)'])
+   m4+cal_viz(@2, /_fpga)
+
 
 \SV_plus
 
@@ -66,6 +67,7 @@ m4_makerchip_module
    // Instantiate the Tiny Tapeout module.
    tt_um_calculator tt(.*);
    
+   assign failed = cyc_cnt > 50;
 endmodule
 
 module tt_um_calculator (
