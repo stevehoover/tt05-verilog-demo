@@ -8,8 +8,8 @@
    **/
    use(m5-1.0)
 \SV
-   m4_include_lib(['https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/tt/tlv_lib/fpga_includes.tlv'])
-   m4_include_lib(['https://raw.githubusercontent.com/stevehoover/RISC-V_MYTH_Workshop/master/tlv_lib/calculator_shell_lib.tlv'])
+   m4_include_lib(['https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/688264a4a089e1beebf74866c562f1e5578d8c54/tlv_lib/fpga_includes.tlv'])
+   m4_include_lib(['https://raw.githubusercontent.com/stevehoover/RISC-V_MYTH_Workshop/a1fe1d47a27ab722375ffe996564c9012e3bb1fd/tlv_lib/calculator_shell_lib.tlv'])
    
    ///m4_lab()
 
@@ -20,7 +20,7 @@
    |calc
       @0
          // Run artificially slow in the real FPGA. 
-         m5+fpga_heartbeat($refresh, 1, 50000000)
+         //m5+fpga_heartbeat($refresh, 1, 50000000)
          $reset = *reset;
       @1
          $val1[31:0] = >>2$out;
