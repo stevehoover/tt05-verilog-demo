@@ -1,7 +1,17 @@
 \m5_TLV_version 1d: tl-x.org
-\SV
+\SV_plus
 
 `default_nettype none
+
+// A simple Makerchip test bench driving random stimulus.
+m4_makerchip_module
+   logic [7:0] ui_in, uio_in, uo_out, uio_out, uio_oe;
+   assign m4_rand(ui_in, 7, 0)
+   assign m4_rand(uio_in, 7, 0)
+   logic ena = 1'b0;
+   logic rst_n = reset;
+   tt_um_template tt(.*);
+endmodule
 
 module tt_um_template (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
