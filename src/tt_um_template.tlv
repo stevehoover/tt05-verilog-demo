@@ -42,7 +42,8 @@ module top(input wire clk, input wire reset, input wire [31:0] cyc_cnt, output w
    assign passed = cyc_cnt > 100;
    assign failed = 1'b0;
 endmodule
-/* This escapes from possible comment block above. */
+// End comment block.
+m5_if_defined_as(MAKERCHIP, 1, [''], ['*']['/'])
 
 module tt_um_template (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
