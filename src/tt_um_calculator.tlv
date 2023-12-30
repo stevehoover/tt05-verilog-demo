@@ -64,12 +64,12 @@ m4_makerchip_module
    logic rst_n = ! reset;
    
    // Instantiate the Tiny Tapeout module.
-   tt_um_calculator tt(.*);
+   tt_um_design tt(.*);
    
    assign passed = cyc_cnt > 50;
 endmodule
 
-module tt_um_calculator (
+module tt_um_design (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
     output wire [7:0] uo_out,   // Dedicated outputs - connected to the 7 segment display
     input  wire [7:0] uio_in,   // IOs: Bidirectional Input path
@@ -93,4 +93,4 @@ module tt_um_calculator (
    *uio_oe = 8'b0;
 
 \SV
-   endmodule
+endmodule

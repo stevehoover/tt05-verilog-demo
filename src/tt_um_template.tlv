@@ -1,16 +1,42 @@
 \m5_TLV_version 1d: tl-x.org
-\SV_plus
+\m5
+   /**
+   This template enables Tiny Tapeout modules to run in the Virtual FPGA Lab.
+   It is specifically for Tiny Tapeout designs only.
+   A different template should be used to develop Virtual FPGA Lab modules that are
+   compatible with Tiny Tapeout (and all other boards supported by the Virtual FPGA Lab boards).
+   **/
+   use(m5-1.0)
+\SV
+   m4_include_lib(['https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/7335edd12fe1b39521e855e526cc337b853e035f/tlv_lib/fpga_includes.tlv'])
 
 `default_nettype none
 
-// A simple Makerchip test bench driving random stimulus.
+\TLV my_design()
+   
+   // ============================================
+   // If you are using TL-Verilog for your design,
+   // your TL-Verilog logic goes here.
+   // Inputs can be referenced as, e.g. *ui_in.
+   // ============================================
+   
+   // ...
+
+\SV
+// A simple Makerchip Verilog test bench driving random stimulus.
 m4_makerchip_module
    logic [7:0] ui_in, uio_in, uo_out, uio_out, uio_oe;
-   assign m4_rand(ui_in, 7, 0)
-   assign m4_rand(uio_in, 7, 0)
+   logic r[31:0] = $urandom();
+   assign ui_in = r[7:0];
+   assign uio_in = r[15:8];
    logic ena = 1'b0;
-   logic rst_n = reset;
+   logic rst_n = ! reset;
+   
+   // Instantiate the Tiny Tapeout module.
    tt_um_template tt(.*);
+   
+   assign passed = cyc_cnt > 100;
+   assign failed = 1'b0;
 endmodule
 
 module tt_um_template (
@@ -25,9 +51,27 @@ module tt_um_template (
 );
 
    wire reset = ! rst_n;
-
+   
 \TLV
-   // ...
-
+   // Connect Tiny Tapeout I/Os to Virtual FPGA Lab.
+   m5+tt_connections()
+   
+   // Instantiate the Virtual FPGA Lab.
+   m5+board(/top, /fpga, 7, $, , my_design)   // 3rd arg selects the board.
 \SV
+   // =========================================
+   // If you are using Verilog for your design,
+   // your Verilog logic goes here.
+   // (You may use /viz_js here, as well.)
+   // =========================================
+   
+   // ...
+   
+
+   // Connect outputs.
+   // Note that my_design will be under /fpga_pins/fpga.
+   assign uo_out = 8'b0;
+   assign uio_out = 8'b0;
+   assign uio_oe = 8'b0;
+   
 endmodule
