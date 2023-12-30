@@ -27,10 +27,10 @@
 // A simple Makerchip Verilog test bench driving random stimulus.
 
 // Comment out the Makerchip module if not using Makerchip. (Only because Yosys chokes on $urandom.)
-m5_if_defined_as(MAKERCIHP, 1, ['/']['*'])
+m5_if_defined_as(MAKERCHIP, 1, [''], ['/']['*'])
 m4_makerchip_module
    logic [7:0] ui_in, uio_in, uo_out, uio_out, uio_oe;
-   logic r[31:0] = $urandom();
+   logic [31:0] r = $urandom();
    assign ui_in = r[7:0];
    assign uio_in = r[15:8];
    logic ena = 1'b0;
