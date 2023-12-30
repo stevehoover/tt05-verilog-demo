@@ -28,7 +28,7 @@
 
 // Comment out the Makerchip module if not using Makerchip. (Only because Yosys chokes on $urandom.)
 m5_if_defined_as(MAKERCHIP, 1, [''], ['/']['*'])
-m4_makerchip_module
+module top(input wire clk, input wire reset, input wire [31:0] cyc_cnt, output wire passed, output wire failed);
    logic [7:0] ui_in, uio_in, uo_out, uio_out, uio_oe;
    logic [31:0] r = $urandom();
    assign ui_in = r[7:0];
@@ -42,7 +42,7 @@ m4_makerchip_module
    assign passed = cyc_cnt > 100;
    assign failed = 1'b0;
 endmodule
-/* If the code above is in a comment block, this ends it. */
+/* This escapes from possible comment block above. */
 
 module tt_um_template (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
@@ -58,6 +58,7 @@ module tt_um_template (
    wire reset = ! rst_n;
    
 \TLV
+   /* verilator lint_off UNOPTFLAT */
    // Connect Tiny Tapeout I/Os to Virtual FPGA Lab.
    m5+tt_connections()
    

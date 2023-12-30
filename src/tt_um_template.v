@@ -12,7 +12,7 @@
 
 // Comment out the Makerchip module if not using Makerchip. (Only because Yosys chokes on $urandom.)
 /*
-module top(input wire clk, input wire reset, input wire [31:0] cyc_cnt, output wire passed, output wire failed);    /* verilator lint_save */ /* verilator lint_off UNOPTFLAT */  bit [256:0] RW_rand_raw; bit [256+63:0] RW_rand_vect; pseudo_rand #(.WIDTH(257)) pseudo_rand (clk, reset, RW_rand_raw[256:0]); assign RW_rand_vect[256+63:0] = {RW_rand_raw[62:0], RW_rand_raw};  /* verilator lint_restore */  /* verilator lint_off WIDTH */ /* verilator lint_off UNOPTFLAT */
+module top(input wire clk, input wire reset, input wire [31:0] cyc_cnt, output wire passed, output wire failed);
    logic [7:0] ui_in, uio_in, uo_out, uio_out, uio_oe;
    logic [31:0] r = $urandom();
    assign ui_in = r[7:0];
@@ -26,7 +26,7 @@ module top(input wire clk, input wire reset, input wire [31:0] cyc_cnt, output w
    assign passed = cyc_cnt > 100;
    assign failed = 1'b0;
 endmodule
-/* If the code above is in a comment block, this ends it. */
+/* This escapes from possible comment block above. */
 
 module tt_um_template (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
@@ -72,8 +72,9 @@ logic [6:0] L0_sseg_segment_n_a0;
 
 // ---------- Generated Code Ends ----------
 //_\TLV
+   /* verilator lint_off UNOPTFLAT */
    // Connect Tiny Tapeout I/Os to Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/7335edd12fe1b39521e855e526cc337b853e035f/tlvlib/fpgaincludes.tlv 839   // Instantiated from tt_um_template.tlv, 62 as: m5+tt_connections()
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/7335edd12fe1b39521e855e526cc337b853e035f/tlvlib/fpgaincludes.tlv 839   // Instantiated from tt_um_template.tlv, 63 as: m5+tt_connections()
       assign L0_slideswitch_a0[7:0] = ui_in;
       assign L0_sseg_segment_n_a0[6:0] = uo_out[6:0];
       assign L0_sseg_decimal_point_n_a0 = uo_out[7];
@@ -81,7 +82,7 @@ logic [6:0] L0_sseg_segment_n_a0;
    //_\end_source
 
    // Instantiate the Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/7335edd12fe1b39521e855e526cc337b853e035f/tlvlib/fpgaincludes.tlv 304   // Instantiated from tt_um_template.tlv, 65 as: m5+board(/top, /fpga, 7, $, , my_design)
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/7335edd12fe1b39521e855e526cc337b853e035f/tlvlib/fpgaincludes.tlv 304   // Instantiated from tt_um_template.tlv, 66 as: m5+board(/top, /fpga, 7, $, , my_design)
       
       //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/7335edd12fe1b39521e855e526cc337b853e035f/tlvlib/fpgaincludes.tlv 352   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/7335edd12fe1b39521e855e526cc337b853e035f/tlvlib/fpgaincludes.tlv, 306 as: m4+thanks(m5__l(306)m5_eval(m5_get(BOARD_THANKS_ARGS)))
          //_/thanks
