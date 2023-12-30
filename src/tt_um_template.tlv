@@ -23,7 +23,11 @@
    // ...
 
 \SV
+
 // A simple Makerchip Verilog test bench driving random stimulus.
+
+// Comment out the Makerchip module if not using Makerchip. (Only because Yosys chokes on $urandom.)
+m5_if_defined_as(MAKERCIHP, 1, ['/']['*'])
 m4_makerchip_module
    logic [7:0] ui_in, uio_in, uo_out, uio_out, uio_oe;
    logic r[31:0] = $urandom();
@@ -38,6 +42,7 @@ m4_makerchip_module
    assign passed = cyc_cnt > 100;
    assign failed = 1'b0;
 endmodule
+/* If the code above is in a comment block, this ends it. */
 
 module tt_um_template (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
