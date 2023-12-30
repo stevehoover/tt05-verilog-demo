@@ -11,10 +11,10 @@
 // A simple Makerchip Verilog test bench driving random stimulus.
 
 // Comment out the Makerchip module if not using Makerchip. (Only because Yosys chokes on $urandom.)
-
+/*
 module top(input wire clk, input wire reset, input wire [31:0] cyc_cnt, output wire passed, output wire failed);    /* verilator lint_save */ /* verilator lint_off UNOPTFLAT */  bit [256:0] RW_rand_raw; bit [256+63:0] RW_rand_vect; pseudo_rand #(.WIDTH(257)) pseudo_rand (clk, reset, RW_rand_raw[256:0]); assign RW_rand_vect[256+63:0] = {RW_rand_raw[62:0], RW_rand_raw};  /* verilator lint_restore */  /* verilator lint_off WIDTH */ /* verilator lint_off UNOPTFLAT */
    logic [7:0] ui_in, uio_in, uo_out, uio_out, uio_oe;
-   logic r[31:0] = $urandom();
+   logic [31:0] r = $urandom();
    assign ui_in = r[7:0];
    assign uio_in = r[15:8];
    logic ena = 1'b0;
