@@ -61,7 +61,8 @@
 m5_if_defined_as(MAKERCHIP, 1, [''], ['/']['*'])
 module top(input wire clk, input wire reset, input wire [31:0] cyc_cnt, output wire passed, output wire failed);
    logic [7:0] ui_in, uio_in, uo_out, uio_out, uio_oe;
-   logic [31:0] r = $urandom();
+   logic [31:0] r;
+   always @(posedge clk) r = $urandom();
    assign ui_in = r[7:0];
    assign uio_in = r[15:8];
    logic ena = 1'b0;

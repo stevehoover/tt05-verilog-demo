@@ -16,7 +16,8 @@
 /*
 module top(input wire clk, input wire reset, input wire [31:0] cyc_cnt, output wire passed, output wire failed);
    logic [7:0] ui_in, uio_in, uo_out, uio_out, uio_oe;
-   logic [31:0] r = $urandom();
+   logic [31:0] r;
+   always @(posedge clk) r = $urandom();
    assign ui_in = r[7:0];
    assign uio_in = r[15:8];
    logic ena = 1'b0;
@@ -187,7 +188,7 @@ logic FpgaPins_Fpga_CALC_valid_a1,
    /* verilator lint_off UNOPTFLAT */
    /* verilator lint_off WIDTHTRUNC */  // (Calculator library was built for a 32-bit calculator.)
    // Connect Tiny Tapeout I/Os to Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv 839   // Instantiated from tt_um_calculator.tlv, 96 as: m5+tt_connections()
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv 839   // Instantiated from tt_um_calculator.tlv, 97 as: m5+tt_connections()
       assign L0_slideswitch_a0[7:0] = ui_in;
       assign L0_sseg_segment_n_a0[6:0] = uo_out[6:0];
       assign L0_sseg_decimal_point_n_a0 = uo_out[7];
@@ -195,7 +196,7 @@ logic FpgaPins_Fpga_CALC_valid_a1,
    //_\end_source
 
    // Instantiate the Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv 304   // Instantiated from tt_um_calculator.tlv, 99 as: m5+board(/top, /fpga, 7, $, , fpga_calculator)
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv 304   // Instantiated from tt_um_calculator.tlv, 100 as: m5+board(/top, /fpga, 7, $, , fpga_calculator)
       
       //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv 352   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlvlib/fpgaincludes.tlv, 306 as: m4+thanks(m5__l(306)m5_eval(m5_get(BOARD_THANKS_ARGS)))
          //_/thanks
