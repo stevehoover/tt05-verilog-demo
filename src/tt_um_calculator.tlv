@@ -34,7 +34,7 @@
             $prod[7:0] = $val1 * $val2;
             $quot[7:0] = $val1 / $val2;
          @2
-            $mem[7:0] = $reset               ? 16'b0 :
+            $mem[7:0] = $reset               ? 8'b0 :
                         ($op[2:0] == 3'b101) ? $val1 :
                                                >>2$mem;
             $out[7:0] = $reset          ? 8'b0 :
@@ -46,30 +46,37 @@
       @2
          m5+sseg_decoder($uo_out, $out[3:0])
    \SV_plus
-      m5_if_defined_as(MAKERCHIP, 1, ['logic [256:0] RW_rand_vect = top.RW_rand_vect;'])
-      m5_if_defined_as(MAKERCHIP, 1, ['logic [31:0] cyc_cnt = top.cyc_cnt;'])
-   m4+cal_viz(@2, /_fpga)
+      m5_if_defined_as(MAKERCHIP, 1, ['logic [256:0] RW_rand_vect = tt_um_calculator.RW_rand_vect;'])
+      m5_if_defined_as(MAKERCHIP, 1, ['logic [31:0] cyc_cnt = tt_um_calculator.cyc_cnt;'])
+   m5_if_defined_as(MAKERCHIP, 1, ['m4+cal_viz(@2, /_fpga)'])
 
 
-\SV_plus
+\SV
 
 `default_nettype none
 
 // A simple Makerchip Verilog test bench driving random stimulus.
-m4_makerchip_module
+
+// Comment out the Makerchip module if not using Makerchip. (Only because Yosys chokes on $urandom.)
+m5_if_defined_as(MAKERCHIP, 1, [''], ['/']['*'])
+module top(input wire clk, input wire reset, input wire [31:0] cyc_cnt, output wire passed, output wire failed);
    logic [7:0] ui_in, uio_in, uo_out, uio_out, uio_oe;
-   assign m4_rand(ui_in, 7, 0)
-   assign m4_rand(uio_in, 7, 0)
+   logic [31:0] r = $urandom();
+   assign ui_in = r[7:0];
+   assign uio_in = r[15:8];
    logic ena = 1'b0;
    logic rst_n = ! reset;
    
    // Instantiate the Tiny Tapeout module.
-   tt_um_design tt(.*);
+   tt_um_calculator tt(.*);
    
-   assign passed = cyc_cnt > 50;
+   assign passed = cyc_cnt > 100;
+   assign failed = 1'b0;
 endmodule
+// End comment block.
+m5_if_defined_as(MAKERCHIP, 1, [''], ['*']['/'])
 
-module tt_um_design (
+module tt_um_calculator (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
     output wire [7:0] uo_out,   // Dedicated outputs - connected to the 7 segment display
     input  wire [7:0] uio_in,   // IOs: Bidirectional Input path
@@ -81,16 +88,23 @@ module tt_um_design (
 );
 
    wire reset = ! rst_n;
+   
 \TLV
+   /* verilator lint_off UNOPTFLAT */
+   /* verilator lint_off WIDTHTRUNC */  // (Calculator library was built for a 32-bit calculator.)
    // Connect Tiny Tapeout I/Os to Virtual FPGA Lab.
    m5+tt_connections()
+   
+   // Instantiate the Virtual FPGA Lab.
    m5+board(/top, /fpga, 7, $, , fpga_calculator)   // 3rd arg selects the board.
+   
+\SV_plus
    
    // Connect outputs.
    // Note that TL-Verilog fpga_logic will be under /fpga_pins/fpga.
-   *uo_out = /fpga_pins/fpga|calc>>2$uo_out;
-   *uio_out = 8'b0;
-   *uio_oe = 8'b0;
+   assign uo_out = {1'b1, /fpga_pins/fpga|calc>>2$uo_out};
+   assign uio_out = 8'b0;
+   assign uio_oe = 8'b0;
 
 \SV
 endmodule

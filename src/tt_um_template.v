@@ -4,7 +4,7 @@
    // Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/7335edd12fe1b39521e855e526cc337b853e035f/tlv_lib/fpga_includes.tlv"
 
 `default_nettype none
-//_\source tt_um_template.tlv 23
+//_\source tt_um_template.tlv 25
 
 //_\SV
 
@@ -75,7 +75,7 @@ logic [6:0] L0_sseg_segment_n_a0;
 //_\TLV
    /* verilator lint_off UNOPTFLAT */
    // Connect Tiny Tapeout I/Os to Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/7335edd12fe1b39521e855e526cc337b853e035f/tlvlib/fpgaincludes.tlv 839   // Instantiated from tt_um_template.tlv, 64 as: m5+tt_connections()
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/7335edd12fe1b39521e855e526cc337b853e035f/tlvlib/fpgaincludes.tlv 839   // Instantiated from tt_um_template.tlv, 66 as: m5+tt_connections()
       assign L0_slideswitch_a0[7:0] = ui_in;
       assign L0_sseg_segment_n_a0[6:0] = uo_out[6:0];
       assign L0_sseg_decimal_point_n_a0 = uo_out[7];
@@ -83,7 +83,7 @@ logic [6:0] L0_sseg_segment_n_a0;
    //_\end_source
 
    // Instantiate the Virtual FPGA Lab.
-   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/7335edd12fe1b39521e855e526cc337b853e035f/tlvlib/fpgaincludes.tlv 304   // Instantiated from tt_um_template.tlv, 67 as: m5+board(/top, /fpga, 7, $, , my_design)
+   //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/7335edd12fe1b39521e855e526cc337b853e035f/tlvlib/fpgaincludes.tlv 304   // Instantiated from tt_um_template.tlv, 69 as: m5+board(/top, /fpga, 7, $, , my_design)
       
       //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/7335edd12fe1b39521e855e526cc337b853e035f/tlvlib/fpgaincludes.tlv 352   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/7335edd12fe1b39521e855e526cc337b853e035f/tlvlib/fpgaincludes.tlv, 306 as: m4+thanks(m5__l(306)m5_eval(m5_get(BOARD_THANKS_ARGS)))
          //_/thanks
@@ -103,7 +103,9 @@ logic [6:0] L0_sseg_segment_n_a0;
                // ============================================
                // If you are using TL-Verilog for your design,
                // your TL-Verilog logic goes here.
-               // Inputs can be referenced as, e.g. *ui_in.
+               // Also provide \viz_js here (for TL-Verilog or Verilog logic).
+               // Tiny Tapeout inputs can be referenced as, e.g. *ui_in.
+               // Connect Tiny Tapeout outputs at the end of this template.
                // ============================================
             
                // ...
@@ -142,17 +144,17 @@ logic [6:0] L0_sseg_segment_n_a0;
       // pushbuttons
       
    //_\end_source   // 3rd arg selects the board.
-//_\SV
+
+/*SV_plus*/
    // =========================================
    // If you are using Verilog for your design,
    // your Verilog logic goes here.
-   // (You may use /viz_js here, as well.)
    // =========================================
 
    // ...
 
 
-   // Connect outputs.
+   // Connect Tiny Tapeout outputs.
    // Note that my_design will be under /fpga_pins/fpga.
    assign uo_out = 8'b0;
    assign uio_out = 8'b0;

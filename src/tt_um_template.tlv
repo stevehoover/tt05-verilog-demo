@@ -17,7 +17,9 @@
    // ============================================
    // If you are using TL-Verilog for your design,
    // your TL-Verilog logic goes here.
-   // Inputs can be referenced as, e.g. *ui_in.
+   // Also provide \viz_js here (for TL-Verilog or Verilog logic).
+   // Tiny Tapeout inputs can be referenced as, e.g. *ui_in.
+   // Connect Tiny Tapeout outputs at the end of this template.
    // ============================================
    
    // ...
@@ -65,17 +67,17 @@ module tt_um_template (
    
    // Instantiate the Virtual FPGA Lab.
    m5+board(/top, /fpga, 7, $, , my_design)   // 3rd arg selects the board.
-\SV
+   
+\SV_plus
    // =========================================
    // If you are using Verilog for your design,
    // your Verilog logic goes here.
-   // (You may use /viz_js here, as well.)
    // =========================================
    
    // ...
    
 
-   // Connect outputs.
+   // Connect Tiny Tapeout outputs.
    // Note that my_design will be under /fpga_pins/fpga.
    assign uo_out = 8'b0;
    assign uio_out = 8'b0;
