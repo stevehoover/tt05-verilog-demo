@@ -6,7 +6,13 @@ TinyTapeout is an educational project that aims to make it easier and cheaper th
 
 To learn more and get started, visit https://tinytapeout.com.
 
-## TL-Verilog Projects
+## Makerchip Projects
+
+### What is Makerchip
+
+Makerchip is an online IDE for digital circuit design. This repository is forked from the Tiny Tapeout repository to add support for Makerchip-based projects coded in Verilog or TL-Verilog. To preview the environment ctrl-click to open the [starting template](https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2Ftt05-verilog-demo%2Fmain%2Fsrc%2Ftt_um_template.tlv#) or a [calculator circuit example](                     https://www.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2Ftt05-verilog-demo%2Fmain%2Fsrc%2Ftt_um_calculator.tlv#) in Makerchip.
+
+![tt_template_makerchip](https://github.com/stevehoover/tt05-verilog-demo/assets/11302288/37f65ea1-6898-41ac-a5b1-c9afb7b824f1)
 
 ### Setup
 
