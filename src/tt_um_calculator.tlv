@@ -1,17 +1,11 @@
 \m5_TLV_version 1d: tl-x.org
 \m5
-   /**
-   This template enables Tiny Tapeout modules to run in the Virtual FPGA Lab.
-   It is specifically for Tiny Tapeout designs only.
-   A different template should be used to develop Virtual FPGA Lab modules that are
-   compatible with Tiny Tapeout (and all other boards supported by the Virtual FPGA Lab boards).
-   **/
    use(m5-1.0)
 \SV
    m4_include_lib(['https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/9216ec3ddb2ead1a2b2eee93c334927b500af330/tlv_lib/fpga_includes.tlv'])
    m4_include_lib(['https://raw.githubusercontent.com/stevehoover/MEST_Course/53d95456e5d2f2e4bf6edb9d8f15d09f8c8c2151/tlv_lib/calculator_shell_lib.tlv'])
    
-// Example using LEDs to display a binary counter.
+// An 8-bit calculator.
 \TLV fpga_calculator(/_fpga)
    |calc
       @0

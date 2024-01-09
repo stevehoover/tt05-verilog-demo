@@ -2,6 +2,7 @@
 \m5
    / This example shows a WARP-V (TL-Verilog RISC-V core) implemented in Tiny Tapeout.
    / See warp-v.org for information about WARP-V.
+   / Requires 8 tiles.
 
    use(m5-1.0)
 

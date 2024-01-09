@@ -19,9 +19,9 @@ Makerchip is an online IDE for digital circuit design. This repository is forked
 To set up your project:
 
   - Create your top-level TL-Verilog source file as a copy of [src/tt_um_template.tlv](src/tt_um_template.tlv), named `src/tt_um_<your-GitHub-ID>_<your-project>`. 
-  - Rename your module (definition and instantiation) in your new `.tlv` file to match the file name.
+  - In this new file, rename your module to match this file name using the settings at the top of the file.
   - Update the module instantiation in `tb.v` (or create your own test bench file).
-  - In [src/Makefile](src/Makefile), list your files in the `source_files` variable.
+  - In [src/Makefile](src/Makefile), list your source files in the `source_files` variable.
   - Edit the [info.yaml](info.yaml) as described in its comments, including updating the list of source files and top module name.
 
 ### Build Flow
