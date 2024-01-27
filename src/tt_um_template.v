@@ -362,7 +362,7 @@ logic FpgaPins_Fpga_TB_Default_valid_a0;
          //
          for (leds = 0; leds <= 7; leds++) begin : \/leds 
             (* keep *) logic  \//@0$viz_lit ;
-            assign \//@0$viz_lit = L1_Digit[digit].L2_Leds[leds].L2_viz_lit_a0;
+            assign \//@0$viz_lit = /*L1_Digit.*/L2_Leds[leds].L2_viz_lit_a0;
          end
       end
 
@@ -693,7 +693,7 @@ logic FpgaPins_Fpga_TB_Default_valid_a0;
    
       // 7-Segment
       //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 395   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv, 346 as: m4+fpga_sseg.
-         for (digit = 0; digit <= 0; digit++) begin : L1_Digit //_/digit
+         //xxx for (digit = 0; digit <= 0; digit++) begin : L1_Digit //_/digit
             
             for (leds = 0; leds <= 7; leds++) begin : L2_Leds //_/leds
 
@@ -703,7 +703,7 @@ logic FpgaPins_Fpga_TB_Default_valid_a0;
                assign L2_viz_lit_a0 = (! L0_sseg_digit_n_a0[digit]) && ! ((leds == 7) ? L0_sseg_decimal_point_n_a0 : L0_sseg_segment_n_a0[leds % 7]);
                
             end
-         end
+         //xxx end
       //_\end_source
    
       // slideswitches
