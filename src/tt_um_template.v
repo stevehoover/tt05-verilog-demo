@@ -336,169 +336,6 @@ logic FpgaPins_Fpga_TB_Default_valid_a0;
 
 
 
-
-//
-// Debug Signals
-//
-
-   if (1) begin : DEBUG_SIGS_GTKWAVE
-
-      (* keep *) logic [7:0] \@0$slideswitch ;
-      assign \@0$slideswitch = L0_slideswitch_a0;
-      (* keep *) logic  \@0$sseg_decimal_point_n ;
-      assign \@0$sseg_decimal_point_n = L0_sseg_decimal_point_n_a0;
-      (* keep *) logic [7:0] \@0$sseg_digit_n ;
-      assign \@0$sseg_digit_n = L0_sseg_digit_n_a0;
-      (* keep *) logic [6:0] \@0$sseg_segment_n ;
-      assign \@0$sseg_segment_n = L0_sseg_segment_n_a0;
-
-      //
-      // Scope: /digit[0:0]
-      //
-      for (digit = 0; digit <= 0; digit++) begin : \/digit 
-
-         //
-         // Scope: /leds[7:0]
-         //
-         for (leds = 0; leds <= 7; leds++) begin : \/leds 
-            (* keep *) logic  \//@0$viz_lit ;
-            assign \//@0$viz_lit = /*L1_Digit.*/L2_Leds[leds].L2_viz_lit_a0;
-         end
-      end
-
-      //
-      // Scope: /fpga_pins
-      //
-      if (1) begin : \/fpga_pins 
-
-         //
-         // Scope: /fpga
-         //
-         if (1) begin : \/fpga 
-
-            //
-            // Scope: |calc
-            //
-            if (1) begin : P_calc
-               (* keep *) logic [31:0] \///?$reset_or_valid@1$diff ;
-               assign \///?$reset_or_valid@1$diff = FpgaPins_Fpga_CALC_diff_a1;
-               (* keep *) logic [3:0] \///@3$digit ;
-               assign \///@3$digit = FpgaPins_Fpga_CALC_digit_a3;
-               (* keep *) logic  \///@0$dummy ;
-               assign \///@0$dummy = FpgaPins_Fpga_CALC_dummy_a0;
-               (* keep *) logic [31:0] \///?$reset_or_valid@2$mem ;
-               assign \///?$reset_or_valid@2$mem = FpgaPins_Fpga_CALC_mem_a2;
-               (* keep *) logic [2:0] \///@0$op ;
-               assign \///@0$op = FpgaPins_Fpga_CALC_op_a0;
-               (* keep *) logic [31:0] \///?$reset_or_valid@2$out ;
-               assign \///?$reset_or_valid@2$out = FpgaPins_Fpga_CALC_out_a2;
-               (* keep *) logic [31:0] \///?$reset_or_valid@1$prod ;
-               assign \///?$reset_or_valid@1$prod = FpgaPins_Fpga_CALC_prod_a1;
-               (* keep *) logic [31:0] \///?$reset_or_valid@1$quot ;
-               assign \///?$reset_or_valid@1$quot = FpgaPins_Fpga_CALC_quot_a1;
-               (* keep *) logic [3:0] \///@0$rand1 ;
-               assign \///@0$rand1 = FpgaPins_Fpga_CALC_rand1_a0;
-               (* keep *) logic [3:0] \///@0$rand2 ;
-               assign \///@0$rand2 = FpgaPins_Fpga_CALC_rand2_a0;
-               (* keep *) logic  \///@0$reset ;
-               assign \///@0$reset = FpgaPins_Fpga_CALC_reset_a0;
-               (* keep *) logic  \///@1$reset_or_valid ;
-               assign \///@1$reset_or_valid = FpgaPins_Fpga_CALC_reset_or_valid_a1;
-               (* keep *) logic [31:0] \///?$reset_or_valid@1$sum ;
-               assign \///?$reset_or_valid@1$sum = FpgaPins_Fpga_CALC_sum_a1;
-               (* keep *) logic [31:0] \///@1$val1 ;
-               assign \///@1$val1 = FpgaPins_Fpga_CALC_val1_a1;
-               (* keep *) logic [7:0] \///@0$val2 ;
-               assign \///@0$val2 = FpgaPins_Fpga_CALC_val2_a0;
-               (* keep *) logic  \///@1$valid ;
-               assign \///@1$valid = FpgaPins_Fpga_CALC_valid_a1;
-            end
-
-            //
-            // Scope: |tb
-            //
-            if (1) begin : P_tb
-               (* keep *) logic  \///@2$is_invalid_op ;
-               assign \///@2$is_invalid_op = FpgaPins_Fpga_TB_is_invalid_op_a2;
-               (* keep *) logic  \///@2$is_op_diff ;
-               assign \///@2$is_op_diff = FpgaPins_Fpga_TB_is_op_diff_a2;
-               (* keep *) logic  \///@2$is_op_mem ;
-               assign \///@2$is_op_mem = FpgaPins_Fpga_TB_is_op_mem_a2;
-               (* keep *) logic  \///@2$is_op_prod ;
-               assign \///@2$is_op_prod = FpgaPins_Fpga_TB_is_op_prod_a2;
-               (* keep *) logic  \///@2$is_op_quot ;
-               assign \///@2$is_op_quot = FpgaPins_Fpga_TB_is_op_quot_a2;
-               (* keep *) logic  \///@2$is_op_recall ;
-               assign \///@2$is_op_recall = FpgaPins_Fpga_TB_is_op_recall_a2;
-               (* keep *) logic  \///@2$is_op_sum ;
-               assign \///@2$is_op_sum = FpgaPins_Fpga_TB_is_op_sum_a2;
-               (* keep *) logic [31:0] \///@2$mem ;
-               assign \///@2$mem = FpgaPins_Fpga_TB_mem_a2;
-               (* keep *) logic [31:0] \///@2$mem_mod ;
-               assign \///@2$mem_mod = FpgaPins_Fpga_TB_mem_mod_a2;
-               (* keep *) logic [1:0] \///@2$op ;
-               assign \///@2$op = FpgaPins_Fpga_TB_op_a2;
-               (* keep *) logic [2:0] \///@2$op_viz ;
-               assign \///@2$op_viz = FpgaPins_Fpga_TB_op_viz_a2;
-               (* keep *) logic [31:0] \///@2$out ;
-               assign \///@2$out = FpgaPins_Fpga_TB_out_a2;
-               (* keep *) logic  \///@2$out_changed ;
-               assign \///@2$out_changed = FpgaPins_Fpga_TB_out_changed_a2;
-               (* keep *) logic [31:0] \///@2$out_modified ;
-               assign \///@2$out_modified = FpgaPins_Fpga_TB_out_modified_a2;
-               (* keep *) logic [31:0] \///@2$val1 ;
-               assign \///@2$val1 = FpgaPins_Fpga_TB_val1_a2;
-               (* keep *) logic  \///@2$val1_changed ;
-               assign \///@2$val1_changed = FpgaPins_Fpga_TB_val1_changed_a2;
-               (* keep *) logic [7:0] \///@2$val2 ;
-               assign \///@2$val2 = FpgaPins_Fpga_TB_val2_a2;
-               (* keep *) logic  \///@2$val2_changed ;
-               assign \///@2$val2_changed = FpgaPins_Fpga_TB_val2_changed_a2;
-               (* keep *) logic  \///@2$valid ;
-               assign \///@2$valid = FpgaPins_Fpga_TB_valid_a2;
-
-               //
-               // Scope: /default
-               //
-               if (1) begin : \/default 
-                  (* keep *) logic  \////@0$dummy ;
-                  assign \////@0$dummy = FpgaPins_Fpga_TB_Default_dummy_a0;
-                  (* keep *) logic [31:0] \////@0$mem ;
-                  assign \////@0$mem = FpgaPins_Fpga_TB_Default_mem_a0;
-                  (* keep *) logic [2:0] \////@0$op ;
-                  assign \////@0$op = FpgaPins_Fpga_TB_Default_op_a0;
-                  (* keep *) logic [31:0] \////@0$out ;
-                  assign \////@0$out = FpgaPins_Fpga_TB_Default_out_a0;
-                  (* keep *) logic [31:0] \////@0$rand ;
-                  assign \////@0$rand = FpgaPins_Fpga_TB_Default_rand_a0;
-                  (* keep *) logic [3:0] \////@0$rand1 ;
-                  assign \////@0$rand1 = FpgaPins_Fpga_TB_Default_rand1_a0;
-                  (* keep *) logic [3:0] \////@0$rand2 ;
-                  assign \////@0$rand2 = FpgaPins_Fpga_TB_Default_rand2_a0;
-                  (* keep *) logic [2:0] \////@0$rand_op ;
-                  assign \////@0$rand_op = FpgaPins_Fpga_TB_Default_rand_op_a0;
-                  (* keep *) logic [31:0] \////@0$val1 ;
-                  assign \////@0$val1 = FpgaPins_Fpga_TB_Default_val1_a0;
-                  (* keep *) logic [31:0] \////@0$val2 ;
-                  assign \////@0$val2 = FpgaPins_Fpga_TB_Default_val2_a0;
-                  (* keep *) logic  \////@0$valid ;
-                  assign \////@0$valid = FpgaPins_Fpga_TB_Default_valid_a0;
-               end
-            end
-         end
-      end
-
-      //
-      // Scope: /switch[7:0]
-      //
-      for (switch = 0; switch <= 7; switch++) begin : \/switch 
-         (* keep *) logic  \/@0$viz_switch ;
-         assign \/@0$viz_switch = L1_Switch[switch].L1_viz_switch_a0;
-      end
-
-
-   end
-
 // ---------- Generated Code Ends ----------
 //_\TLV
    /* verilator lint_off UNOPTFLAT */
@@ -693,7 +530,7 @@ logic FpgaPins_Fpga_TB_Default_valid_a0;
    
       // 7-Segment
       //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 395   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv, 346 as: m4+fpga_sseg.
-         //xxx for (digit = 0; digit <= 0; digit++) begin : L1_Digit //_/digit
+         for (digit = 0; digit <= 0; digit++) begin : L1_Digit //_/digit
             
             for (leds = 0; leds <= 7; leds++) begin : L2_Leds //_/leds
 
@@ -703,7 +540,7 @@ logic FpgaPins_Fpga_TB_Default_valid_a0;
                assign L2_viz_lit_a0 = (! L0_sseg_digit_n_a0[digit]) && ! ((leds == 7) ? L0_sseg_decimal_point_n_a0 : L0_sseg_segment_n_a0[leds % 7]);
                
             end
-         //xxx end
+         end
       //_\end_source
    
       // slideswitches
