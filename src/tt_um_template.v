@@ -5,7 +5,7 @@
    // Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/af18805ea79802b83477cf86aff503e97ed7394a/tlv_lib/tiny_tapeout_lib.tlv"// Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlv_lib/fpga_includes.tlv"
 
    // Strict checking.
-   `default_nettype none
+   //`default_nettype none
 //_\source top.tlv 789
 
 
