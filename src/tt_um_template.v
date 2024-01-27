@@ -733,7 +733,7 @@ logic [31:0] FpgaPins_Fpga_CPU_Xreg_value_a3 [31:0],
       //
       // Scope: /digit[0:0]
       //
-      for (digit = 0; digit <= 0; digit++) begin : \/digit 
+      for (digit = 0; digit <= 1; digit++) begin : \/digit 
 
          //
          // Scope: /leds[7:0]
@@ -1547,7 +1547,7 @@ logic [31:0] FpgaPins_Fpga_CPU_Xreg_value_a3 [31:0],
    
       // 7-Segment
       //_\source /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv 395   // Instantiated from /raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv, 346 as: m4+fpga_sseg.
-         for (digit = 0; digit <= 0; digit++) begin : L1_Digit //_/digit
+         for (digit = 0; digit <= 1; digit++) begin : L1_Digit //_/digit
             
             for (leds = 0; leds <= 7; leds++) begin : L2_Leds //_/leds
 
