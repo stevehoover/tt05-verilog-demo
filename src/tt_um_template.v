@@ -1174,22 +1174,22 @@ logic [31:0] FpgaPins_Fpga_CPU_Xreg_value_a3 [31:0],
                      // Lab m5_get(LabId): Complete Instruction Decode
                      
                      //_@1
-                        assign FpgaPins_Fpga_CPU_is_lui_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[6:0] ==  7'b______0110111 ;
-                        assign FpgaPins_Fpga_CPU_is_auipc_a1   =  FpgaPins_Fpga_CPU_dec_bits_a1[6:0] ==  7'b______0010111 ;
-                        assign FpgaPins_Fpga_CPU_is_jal_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[6:0] ==  7'b______1101111 ;
-                        assign FpgaPins_Fpga_CPU_is_jalr_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__000_1100111 ;
+                        assign FpgaPins_Fpga_CPU_is_lui_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[6:0] ==        7'b0110111 ;
+                        assign FpgaPins_Fpga_CPU_is_auipc_a1   =  FpgaPins_Fpga_CPU_dec_bits_a1[6:0] ==        7'b0010111 ;
+                        assign FpgaPins_Fpga_CPU_is_jal_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[6:0] ==        7'b1101111 ;
+                        assign FpgaPins_Fpga_CPU_is_jalr_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b000_1100111 ;
                
-                        assign FpgaPins_Fpga_CPU_is_load_a1    =  FpgaPins_Fpga_CPU_opcode_a1        ==  7'b______0000011 ;
+                        assign FpgaPins_Fpga_CPU_is_load_a1    =  FpgaPins_Fpga_CPU_opcode_a1        ==        7'b0000011 ;
                
-                        //$is_sb      =  $dec_bits[9:0] == 10'b__000_0100011 ;
-                        //$is_sh      =  $dec_bits[9:0] == 10'b__001_0100011 ;
-                        //$is_sw      =  $dec_bits[9:0] == 10'b__010_0100011 ;
+                        //$is_sb      =  $dec_bits[9:0] ==   10'b000_0100011 ;
+                        //$is_sh      =  $dec_bits[9:0] ==   10'b001_0100011 ;
+                        //$is_sw      =  $dec_bits[9:0] ==   10'b010_0100011 ;
                
-                        assign FpgaPins_Fpga_CPU_is_slti_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__010_0010011 ;
-                        assign FpgaPins_Fpga_CPU_is_sltiu_a1   =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__011_0010011 ;
-                        assign FpgaPins_Fpga_CPU_is_xori_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__100_0010011 ;
-                        assign FpgaPins_Fpga_CPU_is_ori_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__110_0010011 ;
-                        assign FpgaPins_Fpga_CPU_is_andi_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__111_0010011 ;
+                        assign FpgaPins_Fpga_CPU_is_slti_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b010_0010011 ;
+                        assign FpgaPins_Fpga_CPU_is_sltiu_a1   =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b011_0010011 ;
+                        assign FpgaPins_Fpga_CPU_is_xori_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b100_0010011 ;
+                        assign FpgaPins_Fpga_CPU_is_ori_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b110_0010011 ;
+                        assign FpgaPins_Fpga_CPU_is_andi_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b111_0010011 ;
                         assign FpgaPins_Fpga_CPU_is_slli_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1      == 11'b0_001_0010011 ;
                         assign FpgaPins_Fpga_CPU_is_srli_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1      == 11'b0_101_0010011 ;
                         assign FpgaPins_Fpga_CPU_is_srai_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1      == 11'b1_101_0010011 ;
@@ -1350,14 +1350,14 @@ logic [31:0] FpgaPins_Fpga_CPU_Xreg_value_a3 [31:0],
                      
                      //_@1
                         assign FpgaPins_Fpga_CPU_dec_bits_a1[10:0] = {FpgaPins_Fpga_CPU_funct7_a1[5], FpgaPins_Fpga_CPU_funct3_a1, FpgaPins_Fpga_CPU_opcode_a1};
-                        assign FpgaPins_Fpga_CPU_is_beq_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__000_1100011 ;
-                        assign FpgaPins_Fpga_CPU_is_bne_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__001_1100011 ;
-                        assign FpgaPins_Fpga_CPU_is_blt_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__100_1100011 ;
-                        assign FpgaPins_Fpga_CPU_is_bge_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__101_1100011 ;
-                        assign FpgaPins_Fpga_CPU_is_bltu_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__110_1100011 ;
-                        assign FpgaPins_Fpga_CPU_is_bgeu_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__111_1100011 ;
+                        assign FpgaPins_Fpga_CPU_is_beq_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b000_1100011 ;
+                        assign FpgaPins_Fpga_CPU_is_bne_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b001_1100011 ;
+                        assign FpgaPins_Fpga_CPU_is_blt_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b100_1100011 ;
+                        assign FpgaPins_Fpga_CPU_is_bge_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b101_1100011 ;
+                        assign FpgaPins_Fpga_CPU_is_bltu_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b110_1100011 ;
+                        assign FpgaPins_Fpga_CPU_is_bgeu_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b111_1100011 ;
                
-                        assign FpgaPins_Fpga_CPU_is_addi_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] == 10'b__000_0010011 ;
+                        assign FpgaPins_Fpga_CPU_is_addi_a1    =  FpgaPins_Fpga_CPU_dec_bits_a1[9:0] ==   10'b000_0010011 ;
                         assign FpgaPins_Fpga_CPU_is_add_a1     =  FpgaPins_Fpga_CPU_dec_bits_a1      == 11'b0_000_0110011 ;
                      
                
