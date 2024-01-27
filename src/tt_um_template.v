@@ -6,7 +6,8 @@
 
    // Strict checking.
    `default_nettype none
-//_\source top.tlv 790
+//_\source top.tlv 789
+
 
 
 
@@ -108,9 +109,6 @@ logic [31:0] FpgaPins_Fpga_CALC_diff_a1,
 // For /fpga_pins/fpga|calc$digit.
 logic [3:0] FpgaPins_Fpga_CALC_digit_a3;
 
-// For /fpga_pins/fpga|calc$dummy.
-logic FpgaPins_Fpga_CALC_dummy_a0;
-
 // For /fpga_pins/fpga|calc$mem.
 logic [31:0] FpgaPins_Fpga_CALC_mem_a2,
              FpgaPins_Fpga_CALC_mem_a3,
@@ -134,12 +132,6 @@ logic [31:0] FpgaPins_Fpga_CALC_prod_a1,
 logic [31:0] FpgaPins_Fpga_CALC_quot_a1,
              FpgaPins_Fpga_CALC_quot_a2;
 
-// For /fpga_pins/fpga|calc$rand1.
-logic [3:0] FpgaPins_Fpga_CALC_rand1_a0;
-
-// For /fpga_pins/fpga|calc$rand2.
-logic [3:0] FpgaPins_Fpga_CALC_rand2_a0;
-
 // For /fpga_pins/fpga|calc$reset.
 logic FpgaPins_Fpga_CALC_reset_a0,
       FpgaPins_Fpga_CALC_reset_a1,
@@ -159,103 +151,11 @@ logic [31:0] FpgaPins_Fpga_CALC_val1_a1,
 
 // For /fpga_pins/fpga|calc$val2.
 logic [7:0] FpgaPins_Fpga_CALC_val2_a0,
-            FpgaPins_Fpga_CALC_val2_a1,
-            FpgaPins_Fpga_CALC_val2_a2;
+            FpgaPins_Fpga_CALC_val2_a1;
 
 // For /fpga_pins/fpga|calc$valid.
 logic FpgaPins_Fpga_CALC_valid_a1,
       FpgaPins_Fpga_CALC_valid_a2;
-
-// For /fpga_pins/fpga|tb$is_invalid_op.
-logic FpgaPins_Fpga_TB_is_invalid_op_a2;
-
-// For /fpga_pins/fpga|tb$is_op_diff.
-logic FpgaPins_Fpga_TB_is_op_diff_a2;
-
-// For /fpga_pins/fpga|tb$is_op_mem.
-logic FpgaPins_Fpga_TB_is_op_mem_a2;
-
-// For /fpga_pins/fpga|tb$is_op_prod.
-logic FpgaPins_Fpga_TB_is_op_prod_a2;
-
-// For /fpga_pins/fpga|tb$is_op_quot.
-logic FpgaPins_Fpga_TB_is_op_quot_a2;
-
-// For /fpga_pins/fpga|tb$is_op_recall.
-logic FpgaPins_Fpga_TB_is_op_recall_a2;
-
-// For /fpga_pins/fpga|tb$is_op_sum.
-logic FpgaPins_Fpga_TB_is_op_sum_a2;
-
-// For /fpga_pins/fpga|tb$mem.
-logic [31:0] FpgaPins_Fpga_TB_mem_a2;
-
-// For /fpga_pins/fpga|tb$mem_mod.
-logic [31:0] FpgaPins_Fpga_TB_mem_mod_a2;
-
-// For /fpga_pins/fpga|tb$op.
-logic [1:0] FpgaPins_Fpga_TB_op_a2;
-
-// For /fpga_pins/fpga|tb$op_viz.
-logic [2:0] FpgaPins_Fpga_TB_op_viz_a2;
-
-// For /fpga_pins/fpga|tb$out.
-logic [31:0] FpgaPins_Fpga_TB_out_a2;
-
-// For /fpga_pins/fpga|tb$out_changed.
-logic FpgaPins_Fpga_TB_out_changed_a2;
-
-// For /fpga_pins/fpga|tb$out_modified.
-logic [31:0] FpgaPins_Fpga_TB_out_modified_a2;
-
-// For /fpga_pins/fpga|tb$val1.
-logic [31:0] FpgaPins_Fpga_TB_val1_a2;
-
-// For /fpga_pins/fpga|tb$val1_changed.
-logic FpgaPins_Fpga_TB_val1_changed_a2;
-
-// For /fpga_pins/fpga|tb$val2.
-logic [7:0] FpgaPins_Fpga_TB_val2_a2;
-
-// For /fpga_pins/fpga|tb$val2_changed.
-logic FpgaPins_Fpga_TB_val2_changed_a2;
-
-// For /fpga_pins/fpga|tb$valid.
-logic FpgaPins_Fpga_TB_valid_a2;
-
-// For /fpga_pins/fpga|tb/default$dummy.
-logic FpgaPins_Fpga_TB_Default_dummy_a0;
-
-// For /fpga_pins/fpga|tb/default$mem.
-logic [31:0] FpgaPins_Fpga_TB_Default_mem_a0;
-
-// For /fpga_pins/fpga|tb/default$op.
-logic [2:0] FpgaPins_Fpga_TB_Default_op_a0,
-            FpgaPins_Fpga_TB_Default_op_a1;
-
-// For /fpga_pins/fpga|tb/default$out.
-logic [31:0] FpgaPins_Fpga_TB_Default_out_a0;
-
-// For /fpga_pins/fpga|tb/default$rand.
-logic [31:0] FpgaPins_Fpga_TB_Default_rand_a0;
-
-// For /fpga_pins/fpga|tb/default$rand1.
-logic [3:0] FpgaPins_Fpga_TB_Default_rand1_a0;
-
-// For /fpga_pins/fpga|tb/default$rand2.
-logic [3:0] FpgaPins_Fpga_TB_Default_rand2_a0;
-
-// For /fpga_pins/fpga|tb/default$rand_op.
-logic [2:0] FpgaPins_Fpga_TB_Default_rand_op_a0;
-
-// For /fpga_pins/fpga|tb/default$val1.
-logic [31:0] FpgaPins_Fpga_TB_Default_val1_a0;
-
-// For /fpga_pins/fpga|tb/default$val2.
-logic [31:0] FpgaPins_Fpga_TB_Default_val2_a0;
-
-// For /fpga_pins/fpga|tb/default$valid.
-logic FpgaPins_Fpga_TB_Default_valid_a0;
 
 
 
@@ -310,31 +210,100 @@ logic FpgaPins_Fpga_TB_Default_valid_a0;
 
             // Staging of $val2.
             always_ff @(posedge clk) FpgaPins_Fpga_CALC_val2_a1[7:0] <= FpgaPins_Fpga_CALC_val2_a0[7:0];
-            always_ff @(posedge clk) FpgaPins_Fpga_CALC_val2_a2[7:0] <= FpgaPins_Fpga_CALC_val2_a1[7:0];
 
             // Staging of $valid.
             always_ff @(posedge clk) FpgaPins_Fpga_CALC_valid_a2 <= FpgaPins_Fpga_CALC_valid_a1;
 
 
 
-         //
-         // Scope: |tb
-         //
 
+
+
+
+
+//
+// Debug Signals
+//
+
+   if (1) begin : DEBUG_SIGS_GTKWAVE
+
+      (* keep *) logic [7:0] \@0$slideswitch ;
+      assign \@0$slideswitch = L0_slideswitch_a0;
+      (* keep *) logic  \@0$sseg_decimal_point_n ;
+      assign \@0$sseg_decimal_point_n = L0_sseg_decimal_point_n_a0;
+      (* keep *) logic [7:0] \@0$sseg_digit_n ;
+      assign \@0$sseg_digit_n = L0_sseg_digit_n_a0;
+      (* keep *) logic [6:0] \@0$sseg_segment_n ;
+      assign \@0$sseg_segment_n = L0_sseg_segment_n_a0;
+
+      //
+      // Scope: /digit[0:0]
+      //
+      for (digit = 0; digit <= 0; digit++) begin : \/digit 
+
+         //
+         // Scope: /leds[7:0]
+         //
+         for (leds = 0; leds <= 7; leds++) begin : \/leds 
+            (* keep *) logic  \//@0$viz_lit ;
+            assign \//@0$viz_lit = L1_Digit[digit].L2_Leds[leds].L2_viz_lit_a0;
+         end
+      end
+
+      //
+      // Scope: /fpga_pins
+      //
+      if (1) begin : \/fpga_pins 
+
+         //
+         // Scope: /fpga
+         //
+         if (1) begin : \/fpga 
 
             //
-            // Scope: /default
+            // Scope: |calc
             //
+            if (1) begin : P_calc
+               (* keep *) logic [31:0] \///?$reset_or_valid@1$diff ;
+               assign \///?$reset_or_valid@1$diff = FpgaPins_Fpga_CALC_diff_a1;
+               (* keep *) logic [3:0] \///@3$digit ;
+               assign \///@3$digit = FpgaPins_Fpga_CALC_digit_a3;
+               (* keep *) logic [31:0] \///?$reset_or_valid@2$mem ;
+               assign \///?$reset_or_valid@2$mem = FpgaPins_Fpga_CALC_mem_a2;
+               (* keep *) logic [2:0] \///@0$op ;
+               assign \///@0$op = FpgaPins_Fpga_CALC_op_a0;
+               (* keep *) logic [31:0] \///?$reset_or_valid@2$out ;
+               assign \///?$reset_or_valid@2$out = FpgaPins_Fpga_CALC_out_a2;
+               (* keep *) logic [31:0] \///?$reset_or_valid@1$prod ;
+               assign \///?$reset_or_valid@1$prod = FpgaPins_Fpga_CALC_prod_a1;
+               (* keep *) logic [31:0] \///?$reset_or_valid@1$quot ;
+               assign \///?$reset_or_valid@1$quot = FpgaPins_Fpga_CALC_quot_a1;
+               (* keep *) logic  \///@0$reset ;
+               assign \///@0$reset = FpgaPins_Fpga_CALC_reset_a0;
+               (* keep *) logic  \///@1$reset_or_valid ;
+               assign \///@1$reset_or_valid = FpgaPins_Fpga_CALC_reset_or_valid_a1;
+               (* keep *) logic [31:0] \///?$reset_or_valid@1$sum ;
+               assign \///?$reset_or_valid@1$sum = FpgaPins_Fpga_CALC_sum_a1;
+               (* keep *) logic [31:0] \///@1$val1 ;
+               assign \///@1$val1 = FpgaPins_Fpga_CALC_val1_a1;
+               (* keep *) logic [7:0] \///@0$val2 ;
+               assign \///@0$val2 = FpgaPins_Fpga_CALC_val2_a0;
+               (* keep *) logic  \///@1$valid ;
+               assign \///@1$valid = FpgaPins_Fpga_CALC_valid_a1;
+            end
+         end
+      end
 
-               // Staging of $op.
-               always_ff @(posedge clk) FpgaPins_Fpga_TB_Default_op_a1[2:0] <= FpgaPins_Fpga_TB_Default_op_a0[2:0];
+      //
+      // Scope: /switch[7:0]
+      //
+      for (switch = 0; switch <= 7; switch++) begin : \/switch 
+         (* keep *) logic  \/@0$viz_switch ;
+         assign \/@0$viz_switch = L1_Switch[switch].L1_viz_switch_a0;
+      end
 
 
-
-
-
-
-
+   end
 
 // ---------- Generated Code Ends ----------
 //_\TLV
@@ -458,62 +427,7 @@ logic FpgaPins_Fpga_TB_Default_valid_a0;
                      
                         
                      
-                  //_\source /raw.githubusercontent.com/stevehoover/MESTCourse/main/tlvlib/calculatorshelllib.tlv 4   // Instantiated from top.tlv, 302 as: m4+cal_viz(@m5_get(OUTPUT_STAGE), /fpga)
-                     // Only for Makerchip.
-                     //_\source /raw.githubusercontent.com/stevehoover/MESTCourse/main/tlvlib/calculatorshelllib.tlv 9   // Instantiated from /raw.githubusercontent.com/stevehoover/MESTCourse/main/tlvlib/calculatorshelllib.tlv, 6 as: m4+cal_viz_internal.
-                        
-                        
-                        //_|calc
-                           //_@0
-                              assign {FpgaPins_Fpga_CALC_dummy_a0, FpgaPins_Fpga_CALC_rand1_a0[3:0], FpgaPins_Fpga_CALC_rand2_a0[3:0]} = {FpgaPins_Fpga_TB_Default_dummy_a0, FpgaPins_Fpga_TB_Default_rand1_a0, FpgaPins_Fpga_TB_Default_rand2_a0};
-                              `BOGUS_USE(FpgaPins_Fpga_CALC_dummy_a0 FpgaPins_Fpga_CALC_rand2_a0 FpgaPins_Fpga_CALC_rand1_a0)
-                        //_|tb
-                           //_@0
-                              //_/default
-                                 assign FpgaPins_Fpga_TB_Default_valid_a0 = ! FpgaPins_Fpga_CALC_reset_a0;
-                                 /*SV_plus*/
-                                    always @(posedge clk) FpgaPins_Fpga_TB_Default_rand_a0[31:0] <= $random();
-                                 assign FpgaPins_Fpga_TB_Default_rand_op_a0[2:0] = FpgaPins_Fpga_TB_Default_rand_a0[2:0];
-                                 assign FpgaPins_Fpga_TB_Default_rand1_a0[3:0] = FpgaPins_Fpga_TB_Default_rand_a0[6:3];
-                                 assign FpgaPins_Fpga_TB_Default_rand2_a0[3:0] = FpgaPins_Fpga_TB_Default_rand_a0[10:7];
-                                 assign FpgaPins_Fpga_TB_Default_op_a0[2:0] = ((top.cyc_cnt % 2) != 0)
-                                                ? FpgaPins_Fpga_TB_Default_rand_op_a0[2:0]
-                                                //? ( (*top.cyc_cnt > 33) ? ($rand_op[2:0] % 2) :
-                                                //    (*top.cyc_cnt > 15) ? $rand_op[2:0] :
-                                                //                          ((($rand_op[2:0] % 2) != 0) + ($rand_op[2:0] % 4)) )
-                                                : FpgaPins_Fpga_TB_Default_op_a1;
-                                 assign FpgaPins_Fpga_TB_Default_val1_a0[31:0] = '0;
-                                 assign FpgaPins_Fpga_TB_Default_val2_a0[31:0] = '0;
-                                 assign FpgaPins_Fpga_TB_Default_out_a0[31:0] = '0;
-                                 assign FpgaPins_Fpga_TB_Default_mem_a0[31:0] = 32'habcd1234;
-                                 assign FpgaPins_Fpga_TB_Default_dummy_a0 = 0;
-                                 `BOGUS_USE(FpgaPins_Fpga_TB_Default_out_a0 FpgaPins_Fpga_TB_Default_mem_a0 FpgaPins_Fpga_TB_Default_valid_a0 FpgaPins_Fpga_TB_Default_val1_a0 FpgaPins_Fpga_TB_Default_val2_a0 FpgaPins_Fpga_TB_Default_dummy_a0 FpgaPins_Fpga_TB_Default_rand1_a0 FpgaPins_Fpga_TB_Default_rand2_a0)
-                           //_@2   
-                              assign {FpgaPins_Fpga_TB_mem_a2[31:0], FpgaPins_Fpga_TB_op_a2[1:0], FpgaPins_Fpga_TB_out_a2[31:0], FpgaPins_Fpga_TB_val1_a2[31:0], FpgaPins_Fpga_TB_val2_a2[7:0], FpgaPins_Fpga_TB_valid_a2} = {FpgaPins_Fpga_CALC_mem_a2, FpgaPins_Fpga_CALC_op_a2[1:0], FpgaPins_Fpga_CALC_out_a2, FpgaPins_Fpga_CALC_val1_a2, FpgaPins_Fpga_CALC_val2_a2, FpgaPins_Fpga_CALC_valid_a2};
-                     
-                              assign FpgaPins_Fpga_TB_op_viz_a2[2:0] = {{(FpgaPins_Fpga_TB_mem_a2 == 32'habcd1234) ? 1'b0 : ((FpgaPins_Fpga_TB_op_a2 >> 2) > 0)}, FpgaPins_Fpga_TB_op_a2[1:0]};
-                              assign FpgaPins_Fpga_TB_mem_mod_a2[31:0] = (FpgaPins_Fpga_TB_mem_a2[31:0] == 32'habcd1234) ? 32'b0 : FpgaPins_Fpga_TB_mem_a2[31:0];
-                              assign FpgaPins_Fpga_TB_is_op_sum_a2     = (FpgaPins_Fpga_TB_valid_a2 && (FpgaPins_Fpga_TB_op_viz_a2[2:0] == 3'b000)); // sum
-                              assign FpgaPins_Fpga_TB_is_op_diff_a2    = (FpgaPins_Fpga_TB_valid_a2 && (FpgaPins_Fpga_TB_op_viz_a2[2:0] == 3'b001)); // diff
-                              assign FpgaPins_Fpga_TB_is_op_prod_a2    = (FpgaPins_Fpga_TB_valid_a2 && (FpgaPins_Fpga_TB_op_viz_a2[2:0] == 3'b010)); // prod
-                              assign FpgaPins_Fpga_TB_is_op_quot_a2    = (FpgaPins_Fpga_TB_valid_a2 && (FpgaPins_Fpga_TB_op_viz_a2[2:0] == 3'b011)); // quot
-                              assign FpgaPins_Fpga_TB_is_op_recall_a2  = (FpgaPins_Fpga_TB_valid_a2 && (FpgaPins_Fpga_TB_op_viz_a2[2:0] == 3'b100)); // recall(retrieving from memory)
-                              assign FpgaPins_Fpga_TB_is_op_mem_a2     = (FpgaPins_Fpga_TB_valid_a2 && (FpgaPins_Fpga_TB_op_viz_a2[2:0] == 3'b101) && !(FpgaPins_Fpga_TB_mem_a2 == 32'habcd1234)); // mem(storing to memory)
-                              assign FpgaPins_Fpga_TB_is_invalid_op_a2 = (FpgaPins_Fpga_TB_valid_a2 && (FpgaPins_Fpga_TB_op_viz_a2[2:0] == 3'b110 || FpgaPins_Fpga_TB_op_viz_a2[2:0] == 3'b111)); // invalid operation?
-                     
-                              //These signal represents the change in value's and is used to generate colours in \viz according.
-                              assign FpgaPins_Fpga_TB_val1_changed_a2 = FpgaPins_Fpga_TB_valid_a2 && !FpgaPins_Fpga_TB_is_op_recall_a2 && !FpgaPins_Fpga_TB_is_invalid_op_a2;
-                              assign FpgaPins_Fpga_TB_val2_changed_a2 = FpgaPins_Fpga_TB_valid_a2 && !FpgaPins_Fpga_TB_is_op_recall_a2 && !FpgaPins_Fpga_TB_is_op_mem_a2 && !FpgaPins_Fpga_TB_is_invalid_op_a2;
-                              assign FpgaPins_Fpga_TB_out_changed_a2  = FpgaPins_Fpga_TB_valid_a2 && (FpgaPins_Fpga_TB_out_modified_a2 || !(|FpgaPins_Fpga_TB_out_modified_a2)) && !FpgaPins_Fpga_TB_is_invalid_op_a2 && !FpgaPins_Fpga_TB_is_op_mem_a2;
-                              //$out_modified[31:0] = ($out > ((1 << 31) - 1)) ? (~$out + 1) : $out;
-                              assign FpgaPins_Fpga_TB_out_modified_a2[31:0] = FpgaPins_Fpga_TB_out_a2;
-                              //$is_neg_num = ($out > ((1 << 31) - 1));
-                     
-                              
-                        
-                        
-                     //_\end_source
-                  //_\end_source
+                  
                
                   // ============================================================================================================
                
